@@ -1,0 +1,40 @@
+body {
+    color: #666666;
+    font-family: Questrial,"Microsoft JhengHei","Helvetica Neue",Arial,sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Libre Baskerville","Microsoft JhengHei",Helvetica,Times,serif;
+}
+.page-footer {
+    line-height: 48px;
+    padding: 2px;
+    box-shadow: 0 -2px 11px 0 rgba(0, 0, 0, 0.3);
+}
+.page-footer .list-inline > li {
+    padding-left: 0;
+    padding-right: 0;
+}
+.social-media {
+    padding-top: 3px;
+}
+a.icon-rect.fa-github-alt:hover, a.icon-circle.fa-github-alt:hover, a.icon-outlined.fa-github-alt:hover, a.icon-rounded.fa-github-alt:hover {
+    color: #fff;
+    background: #0E7EB5;
+}
+.rd-navbar-sidebar-fixed .rd-navbar-brand img {
+    width: auto;
+}
+.header-logo {
+    height: 140px;
+    position: relative;
+}
+.header-logo>svg {
+    max-width: 1510px;
+    max-height: 140px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    padding: 0 10px;
+}

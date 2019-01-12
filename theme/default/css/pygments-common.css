@@ -1,0 +1,52 @@
+.code-block {
+    margin: 1em auto;
+    border-radius: 10px;
+    border: #272822 3px solid;
+}
+
+.code-block code, .code-block pre {
+    border: 0;
+    font-family: Droid Sans Mono, Consolas, Menlo, Ubuntu Mono, monospace;
+    font-size: 18px;
+    font-variant-ligatures: no-common-ligatures;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+.highlighttable, .code-block, .highlight {
+    background: #272822;
+}
+
+table.highlighttable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.highlighttable td.linenos {
+    width: 40px;
+    text-align: right;
+}
+
+.highlighttable td.linenos, .highlighttable td.code {
+    vertical-align: top;
+}
+
+.linenodiv > pre {
+    padding: 15px 6px;
+}
+td.code > .highlight > pre {
+    padding: 15px 0;
+}
+
+.code-block > .highlight > pre {
+    padding: 15px 0;
+}
+
+.code-block > .highlight, td.code > .highlight {
+    padding: 0 15px;
+}
+
+pre {
+    display: block;
+    color: #888888;
+}
