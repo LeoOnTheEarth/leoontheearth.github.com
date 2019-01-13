@@ -11,6 +11,7 @@
     font-variant-ligatures: no-common-ligatures;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+    margin-bottom: 0;
 }
 
 .highlighttable, .code-block, .highlight {

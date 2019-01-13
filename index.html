@@ -1,187 +1,281 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Welcome!</title>
-        <link rel="icon" href="/favicon.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        <style type="text/css">
-            #breadcrumb-container {
-                background-color: #e9ecef;
-            }
-            #alerts > div:first-child {
-                margin-top: 1em;
-            }
-        </style>
-            </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="mr-1" href="/console/">
-                    <img src="/console/images/logo.png" alt="Maximus Console Logo" />
-                </a>
-                <a class="navbar-brand" href="/console/">
-                    Maximus
-                </a>
-                <button class="navbar-toggler" type="button"
-                        data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<html class="wow-animation" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SPACECOWBOY.</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Questrial%7CLibre+Baskerville:400,400italic,700%7CLato:400,300">
+    <link rel="stylesheet" href="/theme/default/css/style.css?v0.0.1">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto">
-            
-                <li class="nav-item  active first">        <a href="/console/" class="nav-link">Articles</a>        
-    </li>
+    <link rel="stylesheet" href="/theme/default/css/base.css?v0.0.1">
 
-    
-                <li class="nav-item ">        <a href="/console/tag/" class="nav-link">Tags</a>        
-    </li>
+    <style>
+    @media (min-width: 768px) {
+        .post-timeline:first-child:after {
+            left: -15px;
+            width: 77px;
+        }
+        .post-timeline:first-child:before, .post-timeline + .post-timeline:before {
+            width: 87.5%;
+        }
+        .post-timeline:first-child, .post-timeline + .post-timeline {
+            margin-top: 50px;
+        }
+    }
+    @media (min-width: 992px) {
+        .post-timeline:first-child:after {
+            left: 15px;
+        }
+    }
+    @media (min-width: 1200px) {
+        .post-timeline:first-child:after {
+            left: 46px;
+        }
+    }
 
-    
-                <li class="nav-item ">        <a href="/console/author/" class="nav-link">Authors</a>        
-    </li>
+    time.unit>span>span>span.big {
+        line-height: 1;
+    }
+</style>
+</head>
+<body>
 
-    
-                <li class="nav-item ">        <a href="/console/setting/" class="nav-link">Settings</a>        
-    </li>
+<h1 class="d-none">SPACECOWBOY.</h1>
 
-    
-                <li class="nav-item  last">        <a href="/" class="nav-link">Blog</a>        
-    </li>
-
-
-    </ul>
-
-                </div>
-            </div>
-        </nav>
-
-        <nav aria-label="breadcrumb" id="breadcrumb-container">
-    <div class="container">
-        <ol class="breadcrumb">
-                    <li class="breadcrumb-item ">
-                <a href="/console/">                    Console Home
-                </a>            </li>
-                    <li class="breadcrumb-item active">
-                <a href="/console/">                    Articles
-                </a>            </li>
-                </ol>
-    </div>
-</nav>
-
-        <div class="container">
-                            <div id="alerts">
+<!-- IE Panel -->
+<div class="ie-panel">
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+        <img src="/theme/default/images/ie8-panel/warning_bar_0000_us.jpg?v0.0.1" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+    </a>
 </div>
-            
-                <p>
-        <a href="/console/article/create" class="btn btn-success">Create</a>
-        <button class="btn btn-info" data-toggle="modal" data-target="#deploy-modal" data-keyboard="false" data-backdrop="static">
-            Deploy
-        </button>
-    </p>
 
-    <table class="table table-bordered">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Published</th>
-            <th>Created</th>
-            <th>Operation</th>
-        </tr>
-                    <tr>
-                <td>1</td>
-                <td>Symfony 教學 Chapter 1. 基本設定</td>
-                <td>Leo</td>
-                <td>
-                                    2018-10-25 22:45:19
-                                                </td>
-                <td>2018-10-24</td>
-                <td>
-                    <a href="/console/article/edit/1" class="btn btn-primary btn-sm">
-                        Edit
-                    </a>
-                </td>
-            </tr>
-                    <tr>
-                <td>2</td>
-                <td>來個沒背景的 Symfony 教學</td>
-                <td>Leo</td>
-                <td>
-                                    2018-11-23 01:03:34
-                                                    <span class="text-danger">(Draft)</span>
-                                </td>
-                <td>2018-11-23</td>
-                <td>
-                    <a href="/console/article/edit/2" class="btn btn-primary btn-sm">
-                        Edit
-                    </a>
-                </td>
-            </tr>
-            </table>
-
-    <!-- Deploy Modal -->
-    <div class="modal fade" id="deploy-modal" tabindex="-1" role="dialog" aria-labelledby="deploy-modal-title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deploy-modal-title">
-                        Deploy to remote
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-button">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<!-- Page -->
+<div class="page">
+    <!-- Page Head -->
+    <header class="page-head">
+        <!-- RD Navbar Transparent -->
+        <div class="rd-navbar-wrap">
+            <nav class="rd-navbar rd-navbar-sidebar-fixed rd-navbar-light"
+                 data-xl-layout="rd-navbar-sidebar-fixed"
+                 data-lg-layout="rd-navbar-sidebar-fixed"
+                 data-md-layout="rd-navbar-sidebar-fixed"
+                 data-sm-layout="rd-navbar-sidebar-fixed"
+                 data-xs-layout="rd-navbar-sidebar-fixed"
+                 data-layout="rd-navbar-sidebar-fixed"
+                 data-lg-auto-height="false"
+                 data-lg-stick-up="false"
+                 data-lg-hover-on="false"
+                 data-body-class="body-inset-left"
+            >
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel -->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle -->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+                        <!-- Navbar Brand Mobile -->
+                        <div class="rd-navbar-brand">
+                            <a href="/">
+                                <img width="170" height="27" src="/assets/images/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-search">
+                            <a class="rd-navbar-search-toggle" href="#"
+                               data-rd-navbar-toggle=".rd-navbar-inner, .rd-navbar-search, .rd-navbar-sidebar-fixed-search">
+                                <span class="icon icon-xxs text-middle"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-menu-wrap">
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-sidebar-fixed-search">
+                            <div class="container">
+                                <form class="rd-search form-search" action="search-results.html" method="GET"
+                                      data-search-filter="blog-archive-single*.html"
+                                      data-search-live="rd-search-results-live"
+                                      data-search-template="&lt;div class=&quot;search-fullscreen-results-item unit unit-horizontal&quot;&gt;&lt;div class=&quot;unit-left search-fullscreen-results-item-date&quot;&gt;#{date}&lt;/div&gt;&lt;div class=&quot;unit-body&quot;&gt;&lt;h3 class=&quot;search-fullscreen-results-item-title&quot;&gt;&lt;a href=&quot;#{href}&quot;&gt;#{title}&lt;/a&gt;&lt;/h3&gt;&lt;p class=&quot;search-fullscreen-results-item-tags&quot; &gt;in #{keywords}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;"
+                                >
+                                    <div class="form-group">
+                                        <label class="form-label form-search-label" for="ss">Type and hit Enter..</label>
+                                        <div class="input-group">
+                                            <input class="form-search-input form-control form-control-rect form-control-impressed custom-search-input"
+                                                   id="ss" type="text" name="s" autocomplete="off" />
+                                            <div class="input-group-addon">
+                                                <span class="icon fa fa-circle-o-notch fa-spin icon-sm"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="form-search-submit" type="submit">
+                                        <span class="mdi mdi-magnify"></span>
+                                    </button>
+                                </form>
+                                <div class="rd-search-results-live offset-top-66 offset-xl-top-41 offset-xxl-top-66" id="rd-search-results-live"></div>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-sidebar-fixed-menu">
+                                <!-- title -->
+                                <div class="rd-navbar-title d-none d-xl-block">
+                                    <h1>
+                                        <span class="big">Menu</span>
+                                    </h1>
+                                    <hr class="divider bg-primary d-none d-xl-block"/>
+                                </div>
+                                <div class="offset-xl-top-30">
+                                    <!-- RD Navbar Nav -->
+                                    <ul class="rd-navbar-nav">
+                                                                            <li>
+                                            <a href="/">
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                                                            <li>
+                                            <a href="/tags">
+                                                <span>Tags</span>
+                                            </a>
+                                        </li>
+                                                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div id="before-deploy-content">
-                        <div class="text-center">
-                            Do you want to deploy to remote git repository?
-                            <br><br>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+                <!-- Header Logo -->
+        <div class="section-top-124 section-md-top-85 d-none d-xl-block">
+            <div class="header-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1510" height="140" viewBox="0 0 1510 140">
+                    <text stroke="#000"
+                          font-weight="bold"
+                          text-anchor="start"
+                          font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif"
+                          font-size="180"
+                          y="130" x="40"
+                          stroke-width="0"
+                          fill="rgb(241, 241, 241)">SPACECOWBOY.</text>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Page Content -->
+<div class="page-content section-top-124 section-bottom-85 section-sm-top-110 section-xl-top-66 section-xl-bottom-124">
+    <div class="container">
+        <div class="justify-content-md-center justify-content-xl-start">
+            <h1 class="d-none">Articles</h1>
+            <div>
+                            <div class="blog-archive-year ">
+                                    <!-- Post Timeline-->
+                    <article class="post post-timeline">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <time class="unit unit-spacing-lg align-items-end flex-row unit-sm flex-md-row
+                                             flex-md-row-reverse justify-content-md-center offset-md-top-4"
+                                      datetime="2018-01-01">
+                                                                        <span class="unit-left text-center">
+                                        <span class="h6 text-light">
+                                            <span class="d-md-none">
+                                                2018
+                                            </span>
+                                            <span class="text-regular big text-nowrap">
+                                                Oct 25
+                                            </span>
+                                        </span>
+                                    </span>
+                                                                        <span class="unit-body d-none d-md-flex">
+                                        <span class="h5">
+                                            <span class="font-weight-bold big">
+                                                2018
+                                            </span>
+                                        </span>
+                                    </span>
+                                                                                                        </time>
+                            </div>
+                            <div class="col-md-9 offset-top-14 offset-md-top-0">
+                                <!-- Post content-->
+                                <div class="post-content text-left">
+                                    <!-- Post Title-->
+                                    <div class="post-title">
+                                        <h3 class="font-weight-bold">
+                                            <a href="/2018/10/25/symfony-doc-charpter-1-steup">
+                                                Symfony 教學 Chapter 1. 基本設定
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="post-meta text-uppercase text-spacing-60 text-primary small">
+                                        <p class="big">
+                                            <span class="big">
+                                                In
+                                                                                                <a href="/tag/php">PHP</a>,                                                                                                <a href="/tag/symfony">Symfony</a>,                                                                                                <a href="/tag/symfony-34">Symfony 3.4</a>                                                                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-block" id="deploy-button"
-                                    data-parameter-url="/console/deploy/parameters" >
-                                Yes, process the deployment
-                            </button>
+                    </article>
+                                </div>
                         </div>
-                    </div>
-                    <div id="deploying-content" class="d-none">
-                        <div class="text-center">
-                            Deploying to remote git repository, please wait...
-                            <br><br>
-                        </div>
-                        <div class="fa-10x text-center">
-                            <i class="fas fa-sync fa-spin"></i>
-                        </div>
-                    </div>
-                    <div id="after-deploy-content" class="text-success d-none">
-                        <div class="text-center">
-                            Congratulation! Deployment is complete!
-                        </div>
-                        <div class="fa-10x text-center">
-                            <i class="far fa-check-circle"></i>
-                        </div>
-                    </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="section-relative page-footer bg-gray-base context-dark">
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-sm-6 text-center text-sm-left">
+                    Copyright &copy; 2018
+                    <a href="/author">
+                        <span class="ml-1">leo.on.the.earth</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <ul class="list-inline social-media">
+                                            <li class="list-inline-item">
+                            <a class="icon fa fa-facebook icon-xxs icon-circle icon-darkest-filled"
+                               href="#" target="_blank"></a>
+                        </li>
+                                                                <li class="list-inline-item">
+                            <a class="icon fa fa-twitter icon-xxs icon-circle icon-darkest-filled"
+                               href="#" target="_blank"></a>
+                        </li>
+                                                                <li class="list-inline-item">
+                            <a class="icon fa fa-google-plus icon-xxs icon-circle icon-darkest-filled"
+                               href="#" target="_blank"></a>
+                        </li>
+                                                                <li class="list-inline-item">
+                            <a class="icon fa fa-github-alt icon-xxs icon-circle icon-darkest-filled"
+                               href="#" target="_blank"></a>
+                        </li>
+                                        </ul>
                 </div>
             </div>
         </div>
-    </div>
-        </div>
+    </footer>
+</div>
 
-        <script type="text/javascript">
-    $('#deploy-modal').on('hidden.bs.modal', function (e) {
-        $('#before-deploy-content').removeClass('d-none');
-        $('#close-button').removeClass('d-none');
-        $('#deploying-content').addClass('d-none');
-        $('#after-deploy-content').addClass('d-none');
-    });
+<!-- Javascript -->
+<script src="/theme/default/js/core.min.js?v0.0.1"></script>
+<script src="/theme/default/js/script.js?v0.0.1"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34288948-1" type="text/javascript"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-34288948-1');
+  
+  
 </script>
-<script src="/build/console/deploy.js" type="text/javascript"></script>
-    </body>
+
+</body>
 </html>
