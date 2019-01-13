@@ -12,34 +12,16 @@
 
     <link rel="stylesheet" href="/theme/default/css/base.css?v0.0.1">
 
-    <style>
-    @media (min-width: 768px) {
-        .post-timeline:first-child:after {
-            left: -15px;
-            width: 77px;
-        }
-        .post-timeline:first-child:before, .post-timeline + .post-timeline:before {
-            width: 87.5%;
-        }
-        .post-timeline:first-child, .post-timeline + .post-timeline {
-            margin-top: 50px;
-        }
-    }
-    @media (min-width: 992px) {
-        .post-timeline:first-child:after {
-            left: 15px;
-        }
-    }
+    <style type="text/css">
     @media (min-width: 1200px) {
-        .post-timeline:first-child:after {
-            left: 46px;
+        .section-split {
+            width: 66%;
         }
-    }
-
-    time.unit>span>span>span.big {
-        line-height: 1;
     }
 </style>
+<link rel="stylesheet" href="/theme/default/css/article.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-common.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-monokai.css?v0.0.1">
 </head>
 <body>
 <!-- IE Panel -->
@@ -145,81 +127,69 @@
     </header>
 
     <main>
-                <!-- Header Logo -->
-        <div class="section-top-124 section-md-top-85 d-none d-xl-block">
-            <section class="header-logo">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1510" height="140" viewBox="0 0 1510 140">
-                    <text stroke="#000"
-                          font-weight="bold"
-                          text-anchor="start"
-                          font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif"
-                          font-size="180"
-                          y="130" x="40"
-                          stroke-width="0"
-                          fill="rgb(241, 241, 241)">SPACECOWBOY.</text>
-                </svg>
-            </section>
-        </div>
         
-        <!-- Page Content -->
-<div class="page-content section-top-124 section-bottom-85 section-sm-top-110 section-xl-top-66 section-xl-bottom-124">
-    <div class="container">
-        <div class="justify-content-md-center justify-content-xl-start">
-            <section>
-                            <div class="blog-archive-year ">
-                                    <!-- Post Timeline-->
-                    <article class="post post-timeline">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <time class="unit unit-spacing-lg align-items-end flex-row unit-sm flex-md-row
-                                             flex-md-row-reverse justify-content-md-center offset-md-top-4"
-                                      datetime="2018-01-01">
-                                                                        <span class="unit-left text-center">
-                                        <span class="h6 text-light">
-                                            <span class="d-md-none">
-                                                2018
-                                            </span>
-                                            <span class="text-regular big text-nowrap">
-                                                Oct 25
-                                            </span>
-                                        </span>
-                                    </span>
-                                                                        <span class="unit-body d-none d-md-flex">
-                                        <span class="h5">
-                                            <span class="font-weight-bold big">
-                                                2018
-                                            </span>
-                                        </span>
-                                    </span>
-                                                                                                        </time>
-                            </div>
-                            <div class="col-md-9 offset-top-14 offset-md-top-0">
-                                <!-- Post content-->
-                                <section class="post-content text-left">
-                                    <!-- Post Title-->
-                                    <div class="post-title">
-                                        <h3 class="font-weight-bold">
-                                            <a href="/2018/10/25/symfony-doc-charpter-1-steup">
-                                                Symfony 教學 Chapter 1. 基本設定
-                                            </a>
-                                        </h3>
-                                    </div>
-                                    <div class="post-meta text-uppercase text-spacing-60 text-primary small">
-                                        <p class="big">
-                                            <span class="big">
-                                                In
-                                                                                                    <a href="/tag/PHP">PHP</a>,                                                                                                    <a href="/tag/Symfony">Symfony</a>,                                                                                                    <a href="/tag/Symfony%203.4">Symfony 3.4</a>                                                                                            </span>
-                                        </p>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                    </article>
-                                </div>
-                        </section>
+        <section class="bg-fixed"
+     >
+    <div class="section-split bg-white"
+             style="margin-right: auto;"
+        >
+        <div class="inset-left-11p inset-right-11p section-98 section-md-110">
+            <article>
+                <div class="article-header text-center">
+                    <h1 class="font-weight-bold">
+                        <span class="h6 d-block text-uppercase text-regular font-default text-spacing-120 text-primary pb-2">
+                                                            <a href="/tag/PHP">PHP</a>,                                                            <a href="/tag/Symfony">Symfony</a>,                                                            <a href="/tag/Symfony%203.4">Symfony 3.4</a>                                                    </span>
+                        Symfony 教學 Chapter 1. 基本設定
+                    </h1>
+                    <time class="text-light" datetime="2018-01-01">
+                        2018 October 25, 10:45 PM
+                    </time>
+                </div>
+
+                <div class="article-content offset-top-24">
+                    <h2>Installing &amp; Setting up the Symfony Framework</h2>
+
+<p>To create your new Symfony application, first make sure you're using PHP 7.1 or higher and have <a href="https://getcomposer.org/">Composer</a> installed. If you don't, start by <a href="https://symfony.com/doc/current/setup/composer.html"><em>installing Composer globally</em></a> on your system. If you want to use a virtual machine (VM), check out <a href="https://symfony.com/doc/current/setup/homestead.html"><em>Homestead</em></a>.</p>
+
+<p>Create your new project by running:</p>
+
+<div class="code-block"><div class="highlight"><pre><span></span>$ composer create-project symfony/website-skeleton my-project
+</pre></div>
+</div>
+
+<p>reference: <a href="https://symfony.com/doc/3.4/setup.html">https://symfony.com/doc/3.4/setup.html</a></p>
+
+                </div>
+            </article>
+            <hr class="offset-top-66">
+            <h4 class="offset-top-66 text-uppercase text-spacing-120 font-weight-bold">Comments</h4>
+            <div class="offset-top-41">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://glisland.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
         </div>
     </div>
-</div>
+</section>
     </main>
 
     <!-- Page Footer -->
