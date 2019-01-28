@@ -22,7 +22,7 @@
 </style>
 <link rel="stylesheet" href="/theme/default/css/article.css?v0.0.1">
 <link rel="stylesheet" href="/theme/default/css/pygments-common.css?v0.0.1">
-<link rel="stylesheet" href="/theme/default/css/pygments-monokai.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-symfony.css?v0.0.1">
 </head>
 <body>
 
@@ -153,17 +153,341 @@
                 </div>
 
                 <div class="article-content offset-top-24">
-                    <h2>Installing &amp; Setting up the Symfony Framework</h2>
+                    <h2>安裝 &amp; 設定 Symfony 框架</h2>
 
-<p>To create your new Symfony application, first make sure you're using PHP 7.1 or higher and have <a href="https://getcomposer.org/">Composer</a> installed. If you don't, start by <a href="https://symfony.com/doc/current/setup/composer.html"><em>installing Composer globally</em></a> on your system. If you want to use a virtual machine (VM), check out <a href="https://symfony.com/doc/current/setup/homestead.html"><em>Homestead</em></a>.</p>
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見<a href="https://symfony.com/doc/3.4/setup.html" target="_blank">此連結</a></p></div>
 
-<p>Create your new project by running:</p>
+<p>此篇文章會解釋各種安裝 Symfony 的方式，以及如何解決大部分在安裝過程中發生的問題。</p>
 
-<div class="code-block"><div class="highlight"><pre><span></span>$ composer create-project symfony/website-skeleton my-project
+<h3>產生 Symfony 應用程式</h3>
+
+<p>Symfony 提供了一個專用的指令「Symfony Installer」來簡化 Symfony 應用程式的建立。該指令相容於 PHP 5.4 並只需要在你的系統中安裝一次：</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Linux and macOS systems</span>
+<span class="gp">$</span> sudo mkdir -p /usr/local/bin
+<span class="gp">$</span> sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+<span class="gp">$</span> sudo chmod a+x /usr/local/bin/symfony
+
+<span class="c1"># Windows systems</span>
+<span class="gp">c:\&gt;</span> php -r <span class="s2">&quot;file_put_contents(&#39;symfony&#39;, file_get_contents(&#39;https://symfony.com/installer&#39;));&quot;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>In Linux and macOS, a global <code>symfony</code> command is created. In Windows, move the <code>symfony</code> file to a directory that's included in the <code>PATH</code> environment variable and create a <code>symfony.bat</code> file to create the global command or move it to any other directory convenient for you:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># for example, if WAMP is used ...</span>
+<span class="gp">c:\&gt;</span> <span class="k">move</span> symfony c:\wamp\bin\php
+<span class="c1"># create symfony.bat in the same folder</span>
+<span class="gp">c:\&gt;</span> <span class="k">cd</span> c:\wamp\bin\php
+<span class="gp">c:\&gt;</span> <span class="p">(</span><span class="k">echo</span> @ECHO OFF <span class="p">&amp;</span> <span class="k">echo</span> php <span class="s2">&quot;</span><span class="nv">%~dp0</span><span class="s2">symfony&quot;</span> <span class="nv">%*</span><span class="p">)</span> <span class="p">&gt;</span> symfony.bat
+<span class="c1"># ... then, execute the command as:</span>
+<span class="gp">c:\&gt;</span> symfony
+
+<span class="c1"># moving it to your projects folder ...</span>
+<span class="gp">c:\&gt;</span> <span class="k">move</span> symfony c:\projects
+<span class="c1"># ... then, execute the command as</span>
+<span class="gp">c:\&gt;</span> <span class="k">cd</span> projects
+<span class="gp">c:\projects\&gt;</span> php symfony
+</pre></div>
+</td></tr></table></div></div>
+
+<p>當你的「Symfony Installer」已安裝完成，使用 <code>new</code> 這個指令產生你的第 1 個 Symfony 應用程式</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> symfony new my_project_name <span class="m">3</span>.4
+</pre></div>
+</td></tr></table></div>
+
+<p>This command creates a new directory called <code>my_project_name/</code> that contains an empty project based on the most recent stable Symfony version available. In addition, the installer checks if your system meets the technical requirements to execute Symfony applications. If not, you'll see the list of changes needed to meet those requirements.</p>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>If the installer doesn't work for you or doesn't output anything, make sure that the PHP <a href="https://php.net/manual/en/intro.phar.php">Phar extension</a> is installed and enabled on your computer.</p></div>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>If the SSL certificates are not properly installed in your system, you may get this error:</p>
+
+<blockquote>
+  cURL error 60: SSL certificate problem: unable to get local issuer certificate.
+  
+
+</blockquote>
+
+<p>You can solve this issue as follows:</p>
+
+<ol>
+<li>Download a file with the updated list of certificates from <a href="https://curl.haxx.se/ca/cacert.pem">https://curl.haxx.se/ca/cacert.pem</a></li>
+<li>Move the downloaded <code>cacert.pem</code> file to some safe location in your system</li>
+<li><p>Update your php.ini file and configure the path to that file:</p>
+
+<div class="code-block ini"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">; Linux and macOS systems</span>
+<span class="na">curl.cainfo</span> <span class="o">=</span> <span class="s">&quot;/path/to/cacert.pem&quot;</span>
+
+<span class="c1">; Windows systems</span>
+<span class="na">curl.cainfo</span> <span class="o">=</span> <span class="s">&quot;C:\path\to\cacert.pem&quot;</span>
+</pre></div>
+</td></tr></table></div></li>
+</ol></div>
+
+<h3>Basing your Project on a Specific Symfony Version</h3>
+
+<p>In case your project needs to be based on a specific Symfony version, use the
+optional second argument of the <code>new</code> command:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># use the most recent version in any Symfony branch</span>
+<span class="gp">$</span> symfony new my_project_name <span class="m">2</span>.8
+<span class="gp">$</span> symfony new my_project_name <span class="m">3</span>.1
+
+<span class="c1"># use a specific Symfony version</span>
+<span class="gp">$</span> symfony new my_project_name <span class="m">2</span>.8.3
+<span class="gp">$</span> symfony new my_project_name <span class="m">3</span>.1.5
+
+<span class="c1"># use a beta or RC version (useful for testing new Symfony versions)</span>
+<span class="gp">$</span> symfony new my_project <span class="m">2</span>.7.0-BETA1
+<span class="gp">$</span> symfony new my_project <span class="m">2</span>.7.0-RC1
+
+<span class="c1"># use the most recent &#39;lts&#39; version (Long Term Support version)</span>
+<span class="gp">$</span> symfony new my_project_name lts
+</pre></div>
+</td></tr></table></div>
+
+<p>Each version has its <em>own</em> documentation, which you can select on any documentation
+page.</p>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>Read the <a href="https://symfony.com/doc/3.4/contributing/community/releases.html"><em>Symfony Release process</em></a> to better understand why there are several Symfony versions and which one to use for your projects.</p></div>
+
+<h3>Creating Symfony Applications with Composer</h3>
+
+<p>If you can't use the Symfony installer for any reason, you can create Symfony
+applications with <a href="https://getcomposer.org/"><em>Composer</em></a>, the dependency manager used by modern PHP
+applications.</p>
+
+<p>If you don't have Composer installed in your computer, start by
+<a href="https://symfony.com/doc/3.4/setup/composer.html"><em>installing Composer globally</em></a>. Then, execute the
+<code>create-project</code> command to create a new Symfony application based on its
+latest stable version:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> composer create-project symfony/framework-standard-edition my_project_name
+</pre></div>
+</td></tr></table></div>
+
+<p>You can also install any other Symfony version by passing a second argument to
+the <code>create-project</code> command:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> composer create-project symfony/framework-standard-edition my_project_name <span class="s2">&quot;3.4.*&quot;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>If your Internet connection is slow, you may think that Composer is not doing anything. If that's your case, add the <code>-vvv</code> flag to the previous command to display a detailed output of everything that Composer is doing.</p></div>
+
+<h3>Running the Symfony Application</h3>
+
+<p>On production servers, Symfony applications use web servers such as Apache or
+Nginx (see <a href="https://symfony.com/doc/3.4/setup/web_server_configuration.html"><em>configuring a web server to run Symfony</em></a>).
+However, on your local development machine you can also use the web server
+provided by Symfony, which in turn uses the built-in web server provided by PHP.</p>
+
+<p>First, <a href="https://symfony.com/doc/3.4/setup/built_in_web_server.html"><em>install the Symfony Web Server</em></a> and
+then, execute this command:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> my_project_name/
+<span class="gp">$</span> php bin/console server:run
+</pre></div>
+</td></tr></table></div>
+
+<p>Open your browser and access the <code>http://localhost:8000/</code> URL to see the
+Welcome Page of Symfony:</p>
+
+<p><img src="" alt="Demo Picture with Symfony 3.4" /></p>
+
+<p>If you see a blank page or an error page instead of the Welcome Page, there is
+a directory permission misconfiguration. The solution to this problem is
+explained in the <a href="https://symfony.com/doc/3.4/setup/file_permissions.html">Setting up or Fixing File Permissions</a>.</p>
+
+<p>When you are finished working on your Symfony application, stop the server by
+pressing <code>Ctrl+C</code> from the terminal or command console.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>Symfony's web server is great for developing, but should not be used on production. Instead, use Apache or Nginx. See <a href="https://symfony.com/doc/3.4/setup/web_server_configuration.html">Configuring a Web Server</a>.</p></div>
+
+<h3>Checking Symfony Application Configuration and Setup</h3>
+
+<p>The Symfony Installer checks if your system is ready to run Symfony applications.
+However, the PHP configuration for the command console can be different from the
+PHP web configuration. For that reason, Symfony provides a visual configuration
+checker. Access the following URL to check your configuration and fix any issue
+before moving on:</p>
+
+<div class="code-block"><div class="highlight"><pre><span></span>http://localhost:8000/config.php
 </pre></div>
 </div>
 
-<p>reference: <a href="https://symfony.com/doc/3.4/setup.html">https://symfony.com/doc/3.4/setup.html</a></p>
+<h3>Fixing Permissions Problems</h3>
+
+<p>If you have any file permission errors or see a white screen, then read
+<a href="https://symfony.com/doc/3.4/setup/file_permissions.html">Setting up or Fixing File Permissions</a> for more information.</p>
+
+<h3>Updating Symfony Applications</h3>
+
+<p>At this point, you've created a fully-functional Symfony application! Every Symfony
+app depends on a number of third-party libraries stored in the <code>vendor/</code> directory
+and managed by Composer.</p>
+
+<p>Updating those libraries frequently is a good practice to prevent bugs and
+security vulnerabilities. Execute the <code>update</code> Composer command to update them
+all at once (this can take up to several minutes to complete depending on the
+complexity of your project):</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> my_project_name/
+<span class="gp">$</span> composer update
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>Symfony provides a command to check whether your project's dependencies contain any known security vulnerability:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> php bin/console security:check
+</pre></div>
+</td></tr></table></div>
+
+<p>A good security practice is to execute this command regularly to be able to update or replace compromised dependencies as soon as possible.</p></div>
+
+<h3>Installing the Symfony Demo or Other Distributions</h3>
+
+<p>You've already downloaded the <a href="https://github.com/symfony/symfony-standard"><em>Symfony Standard Edition</em></a>: the default starting project
+for all Symfony apps. You'll use this project throughout the documentation to build
+your app!</p>
+
+<p>Symfony also provides some other projects and starting skeletons that you can use:</p>
+
+<ul>
+<li><p><a href="https://github.com/symfony/demo">The Symfony Demo Application</a><br />
+This is a fully-functional application that shows the recommended way to develop
+Symfony applications. The app has been conceived as a learning tool for Symfony
+newcomers and its source code contains tons of comments and helpful notes.</p></li>
+<li><p><a href="https://github.com/symfony-cmf/standard-edition">The Symfony CMF Standard Edition</a><br />
+The <a href="http://cmf.symfony.com/">Symfony CMF</a> is a project that helps make it easier for developers to add
+CMS functionality to their Symfony applications. This is a starting project
+containing the Symfony CMF.</p></li>
+<li><p><a href="https://github.com/gimler/symfony-rest-edition">The Symfony REST Edition</a><br />
+Shows how to build an application that provides a RESTful API using the
+<a href="https://github.com/FriendsOfSymfony/FOSRestBundle">FOSRestBundle</a> and several other related Bundles.</p></li>
+</ul>
+
+<h3>Installing an Existing Symfony Application</h3>
+
+<p>When working collaboratively in a Symfony application, it's uncommon to create
+a new Symfony application as explained in the previous sections. Instead,
+someone else has already created and submitted it to a shared repository.</p>
+
+<p>It's recommended to not submit some files (<a href="https://symfony.com/doc/3.4/configuration.html#config-parameters-yml">parameters.yml</a>)
+and directories (<code>vendor/</code>, cache, logs) to the repository, so you'll have to do
+the following when installing an existing Symfony application:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># clone the project to download its contents</span>
+<span class="gp">$</span> <span class="nb">cd</span> projects/
+<span class="gp">$</span> git clone ...
+
+<span class="c1"># make Composer install the project&#39;s dependencies into vendor/</span>
+<span class="gp">$</span> <span class="nb">cd</span> my_project_name/
+<span class="gp">$</span> composer install
+
+<span class="c1"># now Composer will ask you for the values of any undefined parameter</span>
+<span class="gp">$</span> ...
+</pre></div>
+</td></tr></table></div>
+
+<h3>Keep Going!</h3>
+
+<p>With setup behind you, it's time to <a href="https://symfony.com/doc/3.4/page_creation.html"><em>Create your first page in Symfony</em></a>.</p>
 
                 </div>
             </article>
@@ -236,6 +560,29 @@
 <!-- Javascript -->
 <script src="/theme/default/js/core.min.js?v0.0.1"></script>
 <script src="/theme/default/js/script.js?v0.0.1"></script>
+
+<script type="text/javascript">
+    [].forEach.call(document.querySelectorAll('.gp, .c1'), function (gp) {
+        gp.dataset.content = gp.textContent;
+    });
+
+    function updateConfigCodeBlocks()
+    {
+        $('.code-block.config .config').each(function() {
+            var $node = $(this);
+            var id = $node.attr('id');
+
+            $node.find('.tab-content > div.code-block').each(function(i, elem) {
+                var $block = $(this);
+                var classes = 'tab-pane fade' + (i === 0 ? ' show active' : '');
+
+                $block.addClass(classes);
+                $block.attr('id', id + '-' + i.toString());
+            });
+        });
+    }
+    updateConfigCodeBlocks();
+</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34288948-1" type="text/javascript"></script>

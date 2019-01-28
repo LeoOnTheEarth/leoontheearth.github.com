@@ -23,7 +23,7 @@
 .article-content .code-block.tip,
 .article-content .code-block.see-also,
 .article-content .code-block.sidebar {
-    padding: 15px;
+    padding: 15px 20px 20px 20px;
     background-color: #FFFFFF;
 }
 .article-content .code-block.note,
@@ -60,8 +60,59 @@
     color: #62AEEA;
 }
 
+.article-content .code-block.config {
+    background: transparent;
+    border-radius: 0;
+    border: none;
+}
+.article-content .code-block.config .nav-tabs {
+    border-bottom: none;
+}
+.article-content .code-block.config .nav-tabs .nav-item .nav-link:hover {
+    background-color: #C0BEC3;
+    border-color: transparent;
+}
+.article-content .code-block.config .nav-tabs .nav-item .nav-link.active:hover {
+    background-color: #000;
+}
+.article-content .code-block.config .nav-tabs .nav-link {
+    background-color: #D9D9D9;
+    border-radius: 10px 10px 0 0;
+    color: #000;
+    padding: 0.25rem 0.75rem 0.1rem;
+}
+.article-content .code-block.config .nav-tabs .nav-link.active,
+.article-content .code-block.config .nav-tabs .nav-item.show .nav-link {
+    background-color: #000;
+    border-color: #272822 #272822 #000;
+    border-width: 3px 3px 0;
+    color: #FFF;
+}
+.article-content .code-block.config .nav-tabs .nav-item:not(:first-child) {
+    margin-left: 0.75em;
+}
+.article-content .code-block.config > .config > .tab-content {
+    border: #272822 3px solid;
+    border-radius: 0 0 10px 10px;
+    border-top: none;
+}
+.article-content .code-block.config > .config > .tab-content > div.code-block {
+    border: none;
+    border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .article-content .table {
     margin-left: auto;
     margin-right: auto;
     width: auto;
+}
+
+.article-content blockquote {
+    font-size: 1em;
+    font-style: italic;
+    margin: 0 0 15px;
+    padding: 5px 15px;
+    border-left: 7px solid #E9E9E9;
 }

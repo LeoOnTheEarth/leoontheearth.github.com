@@ -15,7 +15,7 @@
 }
 
 .highlighttable, .code-block, .highlight {
-    background: #272822;
+    background: #000000;
 }
 
 table.highlighttable {
@@ -51,3 +51,21 @@ pre {
     display: block;
     color: #FFFFFF;
 }
+
+/** Terminal related styles **/
+.code-block.terminal .linenos {
+    display: none;
+}
+.code-block.terminal .c1,
+.code-block.terminal .gp {
+    display: inline-block;
+    position: relative;
+    visibility: hidden;
+}
+.code-block.terminal .c1:before,
+.code-block.terminal .gp:before {
+    content: attr(data-content);
+    position: absolute;
+    visibility: visible;
+}
+/** Terminal related styles **/
