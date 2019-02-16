@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html class="wow-animation" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>    Symfony 教學 Chapter 2. 用 Symfony 建立你的第一個頁面 | SPACECOWBOY.
+</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Questrial%7CLibre+Baskerville:400,400italic,700%7CLato:400,300">
+    <link rel="stylesheet" href="/theme/default/css/style.css?v0.0.1">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+
+    <link rel="stylesheet" href="/theme/default/css/base.css?v0.0.1">
+
+    <style type="text/css">
+    @media (min-width: 1200px) {
+        .section-split {
+            width: 66%;
+        }
+    }
+</style>
+<link rel="stylesheet" href="/theme/default/css/article.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-common.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-symfony.css?v0.0.1">
+</head>
+<body>
+
+<h1 class="d-none">Symfony 教學 Chapter 2. 用 Symfony 建立你的第一個頁面 | SPACECOWBOY.</h1>
+
+<!-- IE Panel -->
+<div class="ie-panel">
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+        <img src="/theme/default/images/ie8-panel/warning_bar_0000_us.jpg?v0.0.1" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+    </a>
+</div>
+
+<!-- Page -->
+<div class="page">
+    <!-- Page Head -->
+    <header class="page-head">
+        <!-- RD Navbar Transparent -->
+        <div class="rd-navbar-wrap">
+            <nav class="rd-navbar rd-navbar-sidebar-fixed rd-navbar-light"
+                 data-xl-layout="rd-navbar-sidebar-fixed"
+                 data-lg-layout="rd-navbar-sidebar-fixed"
+                 data-md-layout="rd-navbar-sidebar-fixed"
+                 data-sm-layout="rd-navbar-sidebar-fixed"
+                 data-xs-layout="rd-navbar-sidebar-fixed"
+                 data-layout="rd-navbar-sidebar-fixed"
+                 data-lg-auto-height="false"
+                 data-lg-stick-up="false"
+                 data-lg-hover-on="false"
+                 data-body-class="body-inset-left"
+            >
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel -->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle -->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+                        <!-- Navbar Brand Mobile -->
+                        <div class="rd-navbar-brand">
+                            <a href="/">
+                                <img width="170" height="27" src="/assets/images/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-search">
+                            <a class="rd-navbar-search-toggle" href="#"
+                               data-rd-navbar-toggle=".rd-navbar-inner, .rd-navbar-search, .rd-navbar-sidebar-fixed-search">
+                                <span class="icon icon-xxs text-middle"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-menu-wrap">
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-sidebar-fixed-search">
+                            <div class="container">
+                                <form class="rd-search form-search" action="search-results.html" method="GET"
+                                      data-search-filter="blog-archive-single*.html"
+                                      data-search-live="rd-search-results-live"
+                                      data-search-template="&lt;div class=&quot;search-fullscreen-results-item unit unit-horizontal&quot;&gt;&lt;div class=&quot;unit-left search-fullscreen-results-item-date&quot;&gt;#{date}&lt;/div&gt;&lt;div class=&quot;unit-body&quot;&gt;&lt;h3 class=&quot;search-fullscreen-results-item-title&quot;&gt;&lt;a href=&quot;#{href}&quot;&gt;#{title}&lt;/a&gt;&lt;/h3&gt;&lt;p class=&quot;search-fullscreen-results-item-tags&quot; &gt;in #{keywords}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;"
+                                >
+                                    <div class="form-group">
+                                        <label class="form-label form-search-label" for="ss">Type and hit Enter..</label>
+                                        <div class="input-group">
+                                            <input class="form-search-input form-control form-control-rect form-control-impressed custom-search-input"
+                                                   id="ss" type="text" name="s" autocomplete="off" />
+                                            <div class="input-group-addon">
+                                                <span class="icon fa fa-circle-o-notch fa-spin icon-sm"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="form-search-submit" type="submit">
+                                        <span class="mdi mdi-magnify"></span>
+                                    </button>
+                                </form>
+                                <div class="rd-search-results-live offset-top-66 offset-xl-top-41 offset-xxl-top-66" id="rd-search-results-live"></div>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-sidebar-fixed-menu">
+                                <!-- title -->
+                                <div class="rd-navbar-title d-none d-xl-block">
+                                    <h1>
+                                        <span class="big">Menu</span>
+                                    </h1>
+                                    <hr class="divider bg-primary d-none d-xl-block"/>
+                                </div>
+                                <div class="offset-xl-top-30">
+                                    <!-- RD Navbar Nav -->
+                                    <ul class="rd-navbar-nav">
+                                                                            <li>
+                                            <a href="/">
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                                                            <li>
+                                            <a href="/tags">
+                                                <span>Tags</span>
+                                            </a>
+                                        </li>
+                                                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="bg-fixed"
+     >
+    <div class="section-split bg-white"
+             style="margin-right: auto;"
+        >
+        <div class="inset-left-11p inset-right-11p section-98 section-md-110">
+            <article>
+                <div class="article-header text-center">
+                    <div>
+                        <span class="h6 d-block text-uppercase text-regular font-default text-spacing-120 text-primary pb-2">
+                                                        <a href="/tag/php">PHP</a>,                                                        <a href="/tag/symfony">Symfony</a>,                                                        <a href="/tag/symfony-34">Symfony 3.4</a>                                                    </span>
+                    </div>
+                    <h1 class="font-weight-bold mt-0">
+                        Symfony 教學 Chapter 2. 用 Symfony 建立你的第一個頁面
+                    </h1>
+                    <time class="text-light" datetime="2018-01-01">
+                        2019 February 16
+                    </time>
+                </div>
+
+                <div class="article-content offset-top-24">
+                    <p>建立一個新頁面，不論是是一個 HTML 頁面或是一個 JSON 的接口，都需要進行兩個步驟：</p>
+
+<ol>
+<li><strong>建立 Route</strong>：Route 是指你頁面網址，並指向一個 Controller</li>
+<li><strong>建立 Controller</strong>：Controller 是一個用來建構頁面的 PHP function，接收傳進來的 Request 資訊並產生一個 Symfony Response，Response 包含 HTML 內容、JSON 字串、或者甚至像圖片或 PDF 這樣的二進制檔案。</li>
+</ol>
+
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>Symfony <em>embraces</em> the HTTP Request-Response lifecycle. To find out more, see <a href="https://symfony.com/doc/3.4/introduction/http_fundamentals.html"><em>Symfony and HTTP Fundamentals</em></a>.</p></div>
+
+<h2>Creating a Page: Route and Controller</h2>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>Before continuing, make sure you've read the <a href="https://symfony.com/doc/3.4/setup.html">Setup</a> article and can access your new Symfony app in the browser.</p></div>
+
+<p>Suppose you want to create a page - <code>/lucky/number</code> - that generates a lucky (well, random) number and prints it. To do that, create a "Controller class" and a "controller" method inside of it that will be executed when someone goes to <code>/lucky/number</code>:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="c1">// src/AppBundle/Controller/LuckyController.php</span>
+<span class="k">namespace</span> <span class="nx">AppBundle\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Annotation\Route</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LuckyController</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @Route(&quot;/lucky/number&quot;)</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">numberAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$number</span> <span class="o">=</span> <span class="nx">random_int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>
+            <span class="s1">&#39;&lt;html&gt;&lt;body&gt;Lucky number: &#39;</span><span class="o">.</span><span class="nv">$number</span><span class="o">.</span><span class="s1">&#39;&lt;/body&gt;&lt;/html&gt;&#39;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Before diving into this, test it out! If you are using PHP's internal web server go to:</p>
+
+<blockquote>
+  [http://localhost:8000/lucky/number](http://localhost:8000/lucky/number)
+  
+
+</blockquote>
+
+<p>If you see a lucky number being printed back to you, congratulations! But before you run off to play the lottery, check out how this works. Remember the two steps to creating a page?</p>
+
+<ol>
+<li><em>Create a route</em>: The <code>@Route</code> above <code>numberAction()</code> is the route: it defines the URL pattern for this page. You'll learn more about <a href="/doc/symfony/3.4/routing.html">routing</a> in its own section, including how to make <em>variable</em> URLs;</li>
+<li><em>Create a controller</em>: The method below the route - <code>numberAction()</code> - is called the <em>controller</em>. This is a function where <em>you</em> build the page and ultimately return a <code>Response</code> object. You'll learn more about <a href="https://symfony.com/doc/3.4/controller.html">controllers</a> in their own section, including how to return JSON responses.</li>
+</ol>
+
+<h2>The Web Debug Toolbar: Debugging Dream</h2>
+
+<p>If your page is working, then you should <em>also</em> see a bar along the bottom of your browser. This is called the Web Debug Toolbar: and it's your debugging best friend. You'll learn more about all the information it holds along the way, but feel free to experiment: hover over and click the different icons to get information about routing, performance, logging and more.</p>
+
+<h2>Rendering a Template (with the Service Container)</h2>
+
+<p>If you're returning HTML from your controller, you'll probably want to render a template. Fortunately, Symfony comes with <a href="https://twig.symfony.com/">Twig</a>: a templating language that's easy, powerful and actually quite fun.</p>
+
+<p>First, import the base <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php">Controller</a> class as shown on line 5 below. Then, let your <code>LuckyController</code> class extend the base class:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/LuckyController.php</span>
+
+<span class="c1">// ...</span>
+<span class="c1">// --&gt; add this new use statement</span>
+<span class="k">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LuckyController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Now, use the handy <code>render()</code> function to render a template. Pass it our <code>number</code> variable so we can render that:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/LuckyController.php</span>
+
+<span class="c1">// ...</span>
+<span class="k">class</span> <span class="nc">LuckyController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @Route(&quot;/lucky/number&quot;)</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">numberAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$number</span> <span class="o">=</span> <span class="nx">random_int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;lucky/number.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s1">&#39;number&#39;</span> <span class="o">=&gt;</span> <span class="nv">$number</span><span class="p">,</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Finally, template files should live in the <code>app/Resources/views</code> directory. Create a new <code>app/Resources/views/lucky</code> directory with a new <code>number.html.twig</code> file inside:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="p">{</span><span class="c1"># app/Resources/views/lucky/number.html.twig #}</span>
+
+<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Your</span> <span class="nx">lucky</span> <span class="nx">number</span> <span class="nx">is</span> <span class="p">{{</span> <span class="nx">number</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The <code>{{ number }}</code> syntax is used to <em>print</em> variables in Twig. Refresh your browser to get your <em>new</em> lucky number!</p>
+
+<blockquote>
+  [http://localhost:8000/lucky/number](http://localhost:8000/lucky/number)
+  
+
+</blockquote>
+
+<p>In the <a href="https://symfony.com/doc/3.4/templating.html"><em>Creating and Using Templates</em></a> article, you'll learn all about Twig: how to loop, render other templates and leverage its powerful layout inheritance system.</p>
+
+<h2>Checking out the Project Structure</h2>
+
+<p>Great news! You've already worked inside the two most important directories in your project:</p>
+
+<ul>
+<li><code>app/</code><br />
+Contains things like configuration and templates. Basically, anything that is <em>not</em> PHP code goes here.</li>
+<li><p><code>src/</code><br />
+Your PHP code lives here.</p>
+
+<p>99% of the time, you'll be working in <code>src/</code> (PHP files) or <code>app/</code> (everything else). As you keep reading, you'll learn what can be done inside each of these.</p>
+
+<p>So what about the other directories in the project?</p></li>
+<li><code>bin/</code><br />
+The famous <code>bin/console</code> file lives here (and other, less important executable files).</li>
+<li><code>tests/</code><br />
+The automated tests (e.g. Unit tests) for your application live here.</li>
+<li><code>var/</code><br />
+This is where automatically-created files are stored, like cache files (<code>var/cache/</code>), logs (<code>var/logs/</code>) and sessions (<code>var/sessions/</code>).</li>
+<li><code>vendor/</code><br />
+Third-party (i.e. "vendor") libraries live here! These are downloaded via the <a href="https://getcomposer.org/">Composer</a> package manager.</li>
+<li><code>web/</code><br />
+This is the document root for your project: put any publicly accessible files here (e.g. CSS, JS and images).</li>
+</ul>
+
+<h2>Bundles &amp; Configuration</h2>
+
+<p>Your Symfony application comes pre-installed with a collection of <em>bundles</em>, like <code>FrameworkBundle</code> and <code>TwigBundle</code>. Bundles are similar to the idea of a <em>plugin</em>, but with one important difference: <em>all</em> functionality in a Symfony application comes from a bundle.</p>
+
+<p>Bundles are registered in your <code>app/AppKernel.php</code> file (a rare PHP file in the <code>app/</code> directory) and each gives you more <em>tools</em>, sometimes called <em>services</em>:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AppKernel</span> <span class="k">extends</span> <span class="nx">Kernel</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">registerBundles</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$bundles</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="k">new</span> <span class="nx">Symfony\Bundle\FrameworkBundle\FrameworkBundle</span><span class="p">(),</span>
+            <span class="k">new</span> <span class="nx">Symfony\Bundle\TwigBundle\TwigBundle</span><span class="p">(),</span>
+            <span class="c1">// ...</span>
+        <span class="p">];</span>
+        <span class="c1">// ...</span>
+
+        <span class="k">return</span> <span class="nv">$bundles</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>For example, <code>TwigBundle</code> is responsible for adding the Twig tool to your app!</p>
+
+<p>Eventually, you'll download and add more third-party bundles to your app in order to get even more tools. Imagine a bundle that helps you create paginated lists. That exists!</p>
+
+<p>You can control how your bundles behave via the <code>app/config/config.yml</code> file. That file - and other details like environments &amp; parameters - are discussed in the <a href="https://symfony.com/doc/3.4/configuration.html"><em>Configuring Symfony (and Environments)</em></a> article.</p>
+
+<h2>What's Next?</h2>
+
+<p>Congrats! You're already starting to master Symfony and learn a whole new way of building beautiful, functional, fast and maintainable apps.</p>
+
+<p>Ok, time to finish mastering the fundamentals by reading these articles:</p>
+
+<ul>
+<li><a href="https://symfony.com/doc/3.4/routing.html">Routing</a></li>
+<li><a href="https://symfony.com/doc/3.4/controller.html">Controller</a></li>
+<li><a href="https://symfony.com/doc/3.4/templating.html">Creating and Using Templates</a></li>
+<li><a href="https://symfony.com/doc/3.4/configuration.html">Configuring Symfony (and Environments)</a></li>
+</ul>
+
+<p>Then, learn about other important topics like the <a href="https://symfony.com/doc/3.4/service_container.html"><em>service container</em></a>, the <a href="https://symfony.com/doc/3.4/forms.html"><em>form system</em></a>, using <a href="https://symfony.com/doc/3.4/doctrine.html"><em>Doctrine</em></a> (if you need to query a database) and more!</p>
+
+<p>Have fun!</p>
+
+                </div>
+            </article>
+            <hr class="offset-top-66">
+            <h4 class="offset-top-66 text-uppercase text-spacing-120 font-weight-bold">Comments</h4>
+            <div class="offset-top-41">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://glisland.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="section-relative page-footer bg-gray-base context-dark">
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-sm-6 text-center text-sm-left">
+                    Copyright &copy; 2018
+                    <a href="/author">
+                        <span class="ml-1">leo.on.the.earth</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <ul class="list-inline social-media">
+                                                                                                        <li class="list-inline-item">
+                            <a class="icon fa fa-github-alt icon-xxs icon-circle icon-darkest-filled"
+                               href="https://github.com/LeoOnTheEarth" target="_blank"></a>
+                        </li>
+                                        </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Javascript -->
+<script src="/theme/default/js/core.min.js?v0.0.1"></script>
+<script src="/theme/default/js/script.js?v0.0.1"></script>
+
+<script type="text/javascript">
+    [].forEach.call(document.querySelectorAll('.gp, .c1'), function (gp) {
+        gp.dataset.content = gp.textContent;
+    });
+
+    function updateConfigCodeBlocks()
+    {
+        $('.code-block.config .config').each(function() {
+            var $node = $(this);
+            var id = $node.attr('id');
+
+            $node.find('.tab-content > div.code-block').each(function(i, elem) {
+                var $block = $(this);
+                var classes = 'tab-pane fade' + (i === 0 ? ' show active' : '');
+
+                $block.addClass(classes);
+                $block.attr('id', id + '-' + i.toString());
+            });
+        });
+    }
+    updateConfigCodeBlocks();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34288948-1" type="text/javascript"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-34288948-1');
+  
+  
+</script>
+
+</body>
+</html>

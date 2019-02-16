@@ -108,6 +108,9 @@
     margin-right: auto;
     width: auto;
 }
+.article-content .table th, .article-content .table td {
+    padding: 8px 18px;
+}
 
 .article-content blockquote {
     font-size: 1em;
@@ -116,3 +119,4 @@
     padding: 5px 15px;
     border-left: 7px solid #E9E9E9;
 }
+
