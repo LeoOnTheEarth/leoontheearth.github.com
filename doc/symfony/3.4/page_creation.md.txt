@@ -175,3 +175,7 @@ Ok, time to finish mastering the fundamentals by reading these articles:
 Then, learn about other important topics like the [_service container_](https://symfony.com/doc/3.4/service_container.html), the [_form system_](https://symfony.com/doc/3.4/forms.html), using [_Doctrine_](https://symfony.com/doc/3.4/doctrine.html) (if you need to query a database) and more!
 
 Have fun!
+
+```see-also
+此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見[此連結](https://symfony.com/doc/3.4/page_creation.html)
+```

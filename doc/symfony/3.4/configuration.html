@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html class="wow-animation" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>    Symfony 教學 Chapter 6. 設定 | SPACECOWBOY.
+</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Questrial%7CLibre+Baskerville:400,400italic,700%7CLato:400,300">
+    <link rel="stylesheet" href="/theme/default/css/style.css?v0.0.1">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+
+    <link rel="stylesheet" href="/theme/default/css/base.css?v0.0.1">
+
+    <style type="text/css">
+    @media (min-width: 1200px) {
+        .section-split {
+            width: 66%;
+        }
+    }
+</style>
+<link rel="stylesheet" href="/theme/default/css/article.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-common.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-symfony.css?v0.0.1">
+</head>
+<body>
+
+<h1 class="d-none">Symfony 教學 Chapter 6. 設定 | SPACECOWBOY.</h1>
+
+<!-- IE Panel -->
+<div class="ie-panel">
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+        <img src="/theme/default/images/ie8-panel/warning_bar_0000_us.jpg?v0.0.1" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+    </a>
+</div>
+
+<!-- Page -->
+<div class="page">
+    <!-- Page Head -->
+    <header class="page-head">
+        <!-- RD Navbar Transparent -->
+        <div class="rd-navbar-wrap">
+            <nav class="rd-navbar rd-navbar-sidebar-fixed rd-navbar-light"
+                 data-xl-layout="rd-navbar-sidebar-fixed"
+                 data-lg-layout="rd-navbar-sidebar-fixed"
+                 data-md-layout="rd-navbar-sidebar-fixed"
+                 data-sm-layout="rd-navbar-sidebar-fixed"
+                 data-xs-layout="rd-navbar-sidebar-fixed"
+                 data-layout="rd-navbar-sidebar-fixed"
+                 data-lg-auto-height="false"
+                 data-lg-stick-up="false"
+                 data-lg-hover-on="false"
+                 data-body-class="body-inset-left"
+            >
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel -->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle -->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+                        <!-- Navbar Brand Mobile -->
+                        <div class="rd-navbar-brand">
+                            <a href="/">
+                                <img width="170" height="27" src="/assets/images/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-search">
+                            <a class="rd-navbar-search-toggle" href="#"
+                               data-rd-navbar-toggle=".rd-navbar-inner, .rd-navbar-search, .rd-navbar-sidebar-fixed-search">
+                                <span class="icon icon-xxs text-middle"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-menu-wrap">
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-sidebar-fixed-search">
+                            <div class="container">
+                                <form class="rd-search form-search" action="search-results.html" method="GET"
+                                      data-search-filter="blog-archive-single*.html"
+                                      data-search-live="rd-search-results-live"
+                                      data-search-template="&lt;div class=&quot;search-fullscreen-results-item unit unit-horizontal&quot;&gt;&lt;div class=&quot;unit-left search-fullscreen-results-item-date&quot;&gt;#{date}&lt;/div&gt;&lt;div class=&quot;unit-body&quot;&gt;&lt;h3 class=&quot;search-fullscreen-results-item-title&quot;&gt;&lt;a href=&quot;#{href}&quot;&gt;#{title}&lt;/a&gt;&lt;/h3&gt;&lt;p class=&quot;search-fullscreen-results-item-tags&quot; &gt;in #{keywords}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;"
+                                >
+                                    <div class="form-group">
+                                        <label class="form-label form-search-label" for="ss">Type and hit Enter..</label>
+                                        <div class="input-group">
+                                            <input class="form-search-input form-control form-control-rect form-control-impressed custom-search-input"
+                                                   id="ss" type="text" name="s" autocomplete="off" />
+                                            <div class="input-group-addon">
+                                                <span class="icon fa fa-circle-o-notch fa-spin icon-sm"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="form-search-submit" type="submit">
+                                        <span class="mdi mdi-magnify"></span>
+                                    </button>
+                                </form>
+                                <div class="rd-search-results-live offset-top-66 offset-xl-top-41 offset-xxl-top-66" id="rd-search-results-live"></div>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-sidebar-fixed-menu">
+                                <!-- title -->
+                                <div class="rd-navbar-title d-none d-xl-block">
+                                    <h1>
+                                        <span class="big">Menu</span>
+                                    </h1>
+                                    <hr class="divider bg-primary d-none d-xl-block"/>
+                                </div>
+                                <div class="offset-xl-top-30">
+                                    <!-- RD Navbar Nav -->
+                                    <ul class="rd-navbar-nav">
+                                                                            <li>
+                                            <a href="/">
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                                                            <li>
+                                            <a href="/tags">
+                                                <span>Tags</span>
+                                            </a>
+                                        </li>
+                                                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="bg-fixed"
+     >
+    <div class="section-split bg-white"
+             style="margin-right: auto;"
+        >
+        <div class="inset-left-11p inset-right-11p section-98 section-md-110">
+            <article>
+                <div class="article-header text-center">
+                    <div>
+                        <span class="h6 d-block text-uppercase text-regular font-default text-spacing-120 text-primary pb-2">
+                                                        <a href="/tag/php">PHP</a>,                                                        <a href="/tag/symfony">Symfony</a>,                                                        <a href="/tag/symfony-34">Symfony 3.4</a>                                                    </span>
+                    </div>
+                    <h1 class="font-weight-bold mt-0">
+                        Symfony 教學 Chapter 6. 設定
+                    </h1>
+                    <time class="text-light" datetime="2018-01-01">
+                        2019 February 18
+                    </time>
+                </div>
+
+                <div class="article-content offset-top-24">
+                    <h1>設定 Symfony (以及環境設定)</h1>
+
+<p>Every Symfony application consists of a collection of bundles that add useful tools (<a href="https://symfony.com/doc/3.4/service_container.html">services</a>) to your project. Each bundle can be customized via configuration files that live - by default - in the <code>app/config</code> directory.</p>
+
+<h2>Configuration: config.yml</h2>
+
+<p>The main configuration file is called <code>config.yml</code>:</p>
+
+<div class="code-block config yaml xml php"><div id="config-7b0663ff634dbbf189c9ed9c42b390c2" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-7b0663ff634dbbf189c9ed9c42b390c2-0" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-7b0663ff634dbbf189c9ed9c42b390c2-1" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-7b0663ff634dbbf189c9ed9c42b390c2-2" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/config.yml</span>
+<span class="nt">imports</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">parameters.yml</span> <span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">security.yml</span> <span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">services.yml</span> <span class="p p-Indicator">}</span>
+
+<span class="nt">framework</span><span class="p">:</span>
+    <span class="nt">secret</span><span class="p">:</span>          <span class="s">&#39;%secret%&#39;</span>
+    <span class="nt">router</span><span class="p">:</span>          <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="s">&#39;%kernel.project_dir%/app/config/routing.yml&#39;</span> <span class="p p-Indicator">}</span>
+    <span class="c1"># ...</span>
+
+<span class="c1"># Twig Configuration</span>
+<span class="nt">twig</span><span class="p">:</span>
+    <span class="nt">debug</span><span class="p">:</span>            <span class="s">&#39;%kernel.debug%&#39;</span>
+    <span class="nt">strict_variables</span><span class="p">:</span> <span class="s">&#39;%kernel.debug%&#39;</span>
+
+<span class="c1"># ...</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:framework=</span><span class="s">&quot;http://symfony.com/schema/dic/symfony&quot;</span>
+    <span class="na">xmlns:twig=</span><span class="s">&quot;http://symfony.com/schema/dic/twig&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services</span>
+<span class="s">        http://symfony.com/schema/dic/services/services-1.0.xsd</span>
+<span class="s">        http://symfony.com/schema/dic/symfony</span>
+<span class="s">        http://symfony.com/schema/dic/symfony/symfony-1.0.xsd</span>
+<span class="s">        http://symfony.com/schema/dic/twig</span>
+<span class="s">        http://symfony.com/schema/dic/twig/twig-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;imports&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;parameters.yml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;security.yml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;services.yml&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/imports&gt;</span>
+
+    <span class="nt">&lt;framework:config</span> <span class="na">secret=</span><span class="s">&quot;%secret%&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;framework:router</span> <span class="na">resource=</span><span class="s">&quot;%kernel.project_dir%/app/config/routing.xml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;/framework:config&gt;</span>
+
+    <span class="c">&lt;!-- Twig Configuration --&gt;</span>
+    <span class="nt">&lt;twig:config</span> <span class="na">debug=</span><span class="s">&quot;%kernel.debug%&quot;</span> <span class="na">strict-variables=</span><span class="s">&quot;%kernel.debug%&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/config.php</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;parameters.yml&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;security.yml&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;services.yml&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">loadFromExtension</span><span class="p">(</span><span class="s1">&#39;framework&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;secret&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;%secret%&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;router&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;%kernel.project_dir%/app/config/routing.php&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="c1">// ...</span>
+<span class="p">]);</span>
+
+<span class="c1">// Twig Configuration</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">loadFromExtension</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;debug&#39;</span>            <span class="o">=&gt;</span> <span class="s1">&#39;%kernel.debug%&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;strict_variables&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;%kernel.debug%&#39;</span><span class="p">,</span>
+<span class="p">]);</span>
+
+<span class="c1">// ...</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>Most top-level keys - like <code>framework</code> and <code>twig</code> - are configuration for a specific bundle (i.e. <code>FrameworkBundle</code> and <code>TwigBundle</code>).</p>
+
+<div class="code-block sidebar"><h3>Configuration Formats</h3>
+
+<p>Throughout the documentation, all configuration examples will be shown in three formats (YAML, XML and PHP). YAML is used by default, but you can choose whatever you like best. There is no performance difference:</p>
+
+<ul>
+<li><a href="https://symfony.com/doc/3.4/components/yaml/yaml_format.html">The YAML Format</a>: Simple, clean and readable;</li>
+<li><em>XML</em>: More powerful than YAML at times &amp; supports IDE autocompletion;</li>
+<li><em>PHP</em>: Very powerful but less readable than standard configuration formats.</li>
+</ul></div>
+
+<h2>Configuration Reference &amp; Dumping</h2>
+
+<p>There are <em>two</em> ways to know <em>what</em> keys you can configure:</p>
+
+<ol>
+<li>Use the <a href="https://symfony.com/doc/3.4/reference/index.html">Reference Section</a>;</li>
+<li>Use the <code>config:dump-reference</code> command.</li>
+</ol>
+
+<p>For example, if you want to configure something in Twig, you can see an example dump of all available configuration options by running:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> php bin/console config:dump-reference twig
+</pre></div>
+</td></tr></table></div>
+
+<h2>The imports Key: Loading other Configuration Files</h2>
+
+<p>Symfony's main configuration file is <code>app/config/config.yml</code>. But, for organization, it <em>also</em> loads other configuration files via its <code>imports</code> key:</p>
+
+<div class="code-block config yaml xml php"><div id="config-cf2c6f5f8b30541fc026d61df6baf1a8" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-cf2c6f5f8b30541fc026d61df6baf1a8-0" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-cf2c6f5f8b30541fc026d61df6baf1a8-1" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-cf2c6f5f8b30541fc026d61df6baf1a8-2" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/config.yml</span>
+<span class="nt">imports</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">parameters.yml</span> <span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">security.yml</span> <span class="p p-Indicator">}</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">services.yml</span> <span class="p p-Indicator">}</span>
+<span class="c1"># ...</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services</span>
+<span class="s">        http://symfony.com/schema/dic/services/services-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;imports&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;parameters.yml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;security.yml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;services.yml&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/imports&gt;</span>
+
+    <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/config.php</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;parameters.yml&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;security.yml&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;services.yml&#39;</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>The <code>imports</code> key works a lot like the PHP <code>include()</code> function: the contents of <code>parameters.yml</code>, <code>security.yml</code> and <code>services.yml</code> are read and loaded. You can also load XML files or PHP files.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>If your application uses unconventional file extensions (for example, your YAML files have a  <code>.res</code> extension) you can set the file type explicitly with the type option:</p>
+
+<div class="code-block config yaml xml php"><div id="config-a1ede3006a467f6e0290026c4a92b1d3" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-a1ede3006a467f6e0290026c4a92b1d3-0" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a1ede3006a467f6e0290026c4a92b1d3-1" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a1ede3006a467f6e0290026c4a92b1d3-2" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/config.yml</span>
+<span class="nt">imports</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt"> resource</span><span class="p">:</span> <span class="nv">parameters.res</span><span class="p p-Indicator">,</span><span class="nt"> type</span><span class="p">:</span> <span class="nv">yml</span> <span class="p p-Indicator">}</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><!-- app/config/config.xml -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:framework=</span><span class="s">&quot;http://symfony.com/schema/dic/symfony&quot;</span>
+    <span class="na">xmlns:twig=</span><span class="s">&quot;http://symfony.com/schema/dic/twig&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services</span>
+<span class="s">        http://symfony.com/schema/dic/services/services-1.0.xsd</span>
+<span class="s">        http://symfony.com/schema/dic/symfony</span>
+<span class="s">        http://symfony.com/schema/dic/symfony/symfony-1.0.xsd</span>
+<span class="s">        http://symfony.com/schema/dic/twig</span>
+<span class="s">        http://symfony.com/schema/dic/twig/twig-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;imports&gt;</span>
+        <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;parameters.res&quot;</span> <span class="na">type=</span><span class="s">&quot;yml&quot;</span> <span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;/imports&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/config.php</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;parameters.res&#39;</span><span class="p">,</span> <span class="s1">&#39;yml&#39;</span><span class="p">);</span>
+<span class="c1">// ...</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div></div>
+
+<h2>The parameters Key: Parameters (Variables)</h2>
+
+<p>Another special key is called <code>parameters</code>: it's used to define <em>variables</em> that can be referenced in <em>any</em> other configuration file. For example, in <code>config.yml</code>, a <code>locale</code> parameter is defined and then referenced below under the <code>framework</code> key:</p>
+
+<div class="code-block config yaml xml php"><div id="config-dc0cbd6f153875a04c121e4f42a05ebf" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-dc0cbd6f153875a04c121e4f42a05ebf-0" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-dc0cbd6f153875a04c121e4f42a05ebf-1" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-dc0cbd6f153875a04c121e4f42a05ebf-2" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/config.yml</span>
+<span class="c1"># ...</span>
+
+<span class="nt">parameters</span><span class="p">:</span>
+    <span class="nt">locale</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">en</span>
+
+<span class="nt">framework</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+
+    <span class="c1"># any string surrounded by two % is replaced by that parameter value</span>
+    <span class="nt">default_locale</span><span class="p">:</span>  <span class="s">&quot;%locale%&quot;</span>
+
+<span class="c1"># ...</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:framework=</span><span class="s">&quot;http://symfony.com/schema/dic/symfony&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services</span>
+<span class="s">        http://symfony.com/schema/dic/services/services-1.0.xsd</span>
+<span class="s">        http://symfony.com/schema/dic/symfony</span>
+<span class="s">        http://symfony.com/schema/dic/symfony/symfony-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;parameters&gt;</span>
+        <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;locale&quot;</span><span class="nt">&gt;</span>en<span class="nt">&lt;/parameter&gt;</span>
+    <span class="nt">&lt;/parameters&gt;</span>
+
+    <span class="nt">&lt;framework:config</span> <span class="na">default-locale=</span><span class="s">&quot;%locale%&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;/framework:config&gt;</span>
+
+    <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/config.php</span>
+<span class="c1">// ...</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;locale&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">loadFromExtension</span><span class="p">(</span><span class="s1">&#39;framework&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;default_locale&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;%locale%&#39;</span><span class="p">,</span>
+    <span class="c1">// ...</span>
+<span class="p">]);</span>
+
+<span class="c1">// ...</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>You can define whatever parameter names you want under the <code>parameters</code> key of any configuration file. To reference a parameter, surround its name with two percent signs - e.g. <code>%locale%</code>.</p>
+
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>You can also set parameters dynamically, like from environment variables. See <a href="https://symfony.com/doc/3.4/configuration/external_parameters.html"><em>How to Set external Parameters in the Service Container</em></a>.</p></div>
+
+<p>For more information about parameters - including how to reference them from inside a controller - see <a href="https://symfony.com/doc/3.4/service_container.html#service-container-parameters">Service Parameters</a>.</p>
+
+<h2>The Special parameters.yml File</h2>
+
+<p>On the surface, <code>parameters.yml</code> is just like any other configuration file: it is imported by <code>config.yml</code> and defines several parameters:</p>
+
+<div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">parameters</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+    <span class="nt">database_user</span><span class="p">:</span>      <span class="l l-Scalar l-Scalar-Plain">root</span>
+    <span class="nt">database_password</span><span class="p">:</span>  <span class="l l-Scalar l-Scalar-Plain">~</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Not surprisingly, these are referenced from inside of <code>config.yml</code> and help to configure DoctrineBundle and other parts of Symfony:</p>
+
+<div class="code-block config yaml xml php"><div id="config-59ebdf93cfcf6695d90151d47ac81102" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-59ebdf93cfcf6695d90151d47ac81102-0" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-59ebdf93cfcf6695d90151d47ac81102-1" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-59ebdf93cfcf6695d90151d47ac81102-2" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/config.yml</span>
+<span class="nt">doctrine</span><span class="p">:</span>
+    <span class="nt">dbal</span><span class="p">:</span>
+        <span class="nt">driver</span><span class="p">:</span>   <span class="l l-Scalar l-Scalar-Plain">pdo_mysql</span>
+        <span class="c1"># ...</span>
+        <span class="nt">user</span><span class="p">:</span>     <span class="s">&#39;%database_user%&#39;</span>
+        <span class="nt">password</span><span class="p">:</span> <span class="s">&#39;%database_password%&#39;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:doctrine=</span><span class="s">&quot;http://symfony.com/schema/dic/doctrine&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services</span>
+<span class="s">        http://symfony.com/schema/dic/services/services-1.0.xsd</span>
+<span class="s">        http://symfony.com/schema/dic/doctrine</span>
+<span class="s">        http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;doctrine:config&gt;</span>
+        <span class="nt">&lt;doctrine:dbal</span>
+            <span class="na">driver=</span><span class="s">&quot;pdo_mysql&quot;</span>
+
+            <span class="na">user=</span><span class="s">&quot;%database_user%&quot;</span>
+            <span class="na">password=</span><span class="s">&quot;%database_password%&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/doctrine:config&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/config.php</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">loadFromExtension</span><span class="p">(</span><span class="s1">&#39;doctrine&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;dbal&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">&#39;driver&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;pdo_mysql&#39;</span><span class="p">,</span>
+        <span class="c1">// ...</span>
+
+        <span class="s1">&#39;user&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;%database_user%&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;%database_password%&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">]);</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>But the <code>parameters.yml</code> file <em>is</em> special: it defines the values that usually change on each server. For example, the database credentials on your local development machine might be different from your workmates. That's why this file is not committed to the shared repository and is only stored on your machine.</p>
+
+<p>Because of that, <strong>parameters.yml is not committed to your version control</strong>. In fact, the <code>.gitignore</code> file that comes with Symfony prevents it from being committed.</p>
+
+<p>However, a <code>parameters.yml.dist</code> file <em>is</em> committed (with dummy values). This file isn't read by Symfony: it's just a reference so that Symfony knows which parameters need to be defined in the <code>parameters.yml</code> file. If you add or remove keys to <code>parameters.yml</code>, add or remove them from <code>parameters.yml.dist</code> too so both files are always in sync.</p>
+
+<div class="code-block sidebar"><h3>The Interactive Parameter Handler</h3>
+
+<p>When you <a href="https://symfony.com/doc/3.4/setup.html#install-existing-app">install an existing Symfony project</a>, you will need to create the <code>parameters.yml</code> file using the committed <code>parameters.yml.dist</code> file as a reference. To help with this, after you run  <code>composer install</code>, a Symfony script will automatically create this file by interactively asking you to supply the value for each parameter defined in <code>parameters.yml.dist</code>. For more details - or to remove or control this behavior - see the <a href="https://github.com/Incenteev/ParameterHandler">Incenteev Parameter Handler</a> documentation.</p></div>
+
+<h2>Environments &amp; the Other Config Files</h2>
+
+<p>You have just <em>one</em> app, but whether you realize it or not, you need it to behave <em>differently</em> at different times:</p>
+
+<ul>
+<li>While <strong>developing</strong>, you want your app to log everything and expose nice debugging tools;</li>
+<li>After deploying to <strong>production</strong>, you want that same app to be optimized for speed and only log errors.</li>
+</ul>
+
+<p>How can you make <em>one</em> application behave in two different ways? With <em>environments</em>.</p>
+
+<p>You've probably already been using the <code>dev</code> environment without even knowing it. After you deploy, you'll use the <code>prod</code> environment.</p>
+
+<p>To learn more about <code>how</code> to execute and control each environment, see <a href="https://symfony.com/doc/3.4/configuration/environments.html"><em>How to Master and Create new Environments</em></a>.</p>
+
+<h2>Keep Going!</h2>
+
+<p>Congratulations! You've tackled the basics in Symfony. Next, learn about each part of Symfony individually by following the guides. Check out:</p>
+
+<ul>
+<li><a href="https://symfony.com/doc/3.4/forms.html">Forms</a></li>
+<li><a href="https://symfony.com/doc/3.4/doctrine.html">Databases and the Doctrine ORM</a></li>
+<li><a href="https://symfony.com/doc/3.4/service_container.html">Service Container</a></li>
+<li><a href="https://symfony.com/doc/3.4/security.html">Security</a></li>
+<li><a href="https://symfony.com/doc/3.4/email.html">How to Send an Email</a></li>
+<li><a href="https://symfony.com/doc/3.4/logging.html">Logging</a></li>
+</ul>
+
+<p>And the many other topics.</p>
+
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見<a href="https://symfony.com/doc/3.4/configuration.html">此連結</a></p></div>
+
+                </div>
+            </article>
+            <hr class="offset-top-66">
+            <h4 class="offset-top-66 text-uppercase text-spacing-120 font-weight-bold">Comments</h4>
+            <div class="offset-top-41">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://glisland.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="section-relative page-footer bg-gray-base context-dark">
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-sm-6 text-center text-sm-left">
+                    Copyright &copy; 2018
+                    <a href="/author">
+                        <span class="ml-1">leo.on.the.earth</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <ul class="list-inline social-media">
+                                                                                                        <li class="list-inline-item">
+                            <a class="icon fa fa-github-alt icon-xxs icon-circle icon-darkest-filled"
+                               href="https://github.com/LeoOnTheEarth" target="_blank"></a>
+                        </li>
+                                        </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Javascript -->
+<script src="/theme/default/js/core.min.js?v0.0.1"></script>
+<script src="/theme/default/js/script.js?v0.0.1"></script>
+
+<script type="text/javascript">
+    [].forEach.call(document.querySelectorAll('.gp, .c1'), function (gp) {
+        gp.dataset.content = gp.textContent;
+    });
+
+    function updateConfigCodeBlocks()
+    {
+        $('.code-block.config .config').each(function() {
+            var $node = $(this);
+            var id = $node.attr('id');
+
+            $node.find('.tab-content > div.code-block').each(function(i, elem) {
+                var $block = $(this);
+                var classes = 'tab-pane fade' + (i === 0 ? ' show active' : '');
+
+                $block.addClass(classes);
+                $block.attr('id', id + '-' + i.toString());
+            });
+        });
+    }
+    updateConfigCodeBlocks();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34288948-1" type="text/javascript"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-34288948-1');
+  
+  
+</script>
+
+</body>
+</html>

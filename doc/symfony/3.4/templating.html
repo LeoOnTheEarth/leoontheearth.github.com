@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html class="wow-animation" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>    Symfony 教學 Chapter 5. 建立和使用 Templates | SPACECOWBOY.
+</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Questrial%7CLibre+Baskerville:400,400italic,700%7CLato:400,300">
+    <link rel="stylesheet" href="/theme/default/css/style.css?v0.0.1">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+
+    <link rel="stylesheet" href="/theme/default/css/base.css?v0.0.1">
+
+    <style type="text/css">
+    @media (min-width: 1200px) {
+        .section-split {
+            width: 66%;
+        }
+    }
+</style>
+<link rel="stylesheet" href="/theme/default/css/article.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-common.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-symfony.css?v0.0.1">
+</head>
+<body>
+
+<h1 class="d-none">Symfony 教學 Chapter 5. 建立和使用 Templates | SPACECOWBOY.</h1>
+
+<!-- IE Panel -->
+<div class="ie-panel">
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+        <img src="/theme/default/images/ie8-panel/warning_bar_0000_us.jpg?v0.0.1" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+    </a>
+</div>
+
+<!-- Page -->
+<div class="page">
+    <!-- Page Head -->
+    <header class="page-head">
+        <!-- RD Navbar Transparent -->
+        <div class="rd-navbar-wrap">
+            <nav class="rd-navbar rd-navbar-sidebar-fixed rd-navbar-light"
+                 data-xl-layout="rd-navbar-sidebar-fixed"
+                 data-lg-layout="rd-navbar-sidebar-fixed"
+                 data-md-layout="rd-navbar-sidebar-fixed"
+                 data-sm-layout="rd-navbar-sidebar-fixed"
+                 data-xs-layout="rd-navbar-sidebar-fixed"
+                 data-layout="rd-navbar-sidebar-fixed"
+                 data-lg-auto-height="false"
+                 data-lg-stick-up="false"
+                 data-lg-hover-on="false"
+                 data-body-class="body-inset-left"
+            >
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel -->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle -->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+                        <!-- Navbar Brand Mobile -->
+                        <div class="rd-navbar-brand">
+                            <a href="/">
+                                <img width="170" height="27" src="/assets/images/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-search">
+                            <a class="rd-navbar-search-toggle" href="#"
+                               data-rd-navbar-toggle=".rd-navbar-inner, .rd-navbar-search, .rd-navbar-sidebar-fixed-search">
+                                <span class="icon icon-xxs text-middle"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-menu-wrap">
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-sidebar-fixed-search">
+                            <div class="container">
+                                <form class="rd-search form-search" action="search-results.html" method="GET"
+                                      data-search-filter="blog-archive-single*.html"
+                                      data-search-live="rd-search-results-live"
+                                      data-search-template="&lt;div class=&quot;search-fullscreen-results-item unit unit-horizontal&quot;&gt;&lt;div class=&quot;unit-left search-fullscreen-results-item-date&quot;&gt;#{date}&lt;/div&gt;&lt;div class=&quot;unit-body&quot;&gt;&lt;h3 class=&quot;search-fullscreen-results-item-title&quot;&gt;&lt;a href=&quot;#{href}&quot;&gt;#{title}&lt;/a&gt;&lt;/h3&gt;&lt;p class=&quot;search-fullscreen-results-item-tags&quot; &gt;in #{keywords}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;"
+                                >
+                                    <div class="form-group">
+                                        <label class="form-label form-search-label" for="ss">Type and hit Enter..</label>
+                                        <div class="input-group">
+                                            <input class="form-search-input form-control form-control-rect form-control-impressed custom-search-input"
+                                                   id="ss" type="text" name="s" autocomplete="off" />
+                                            <div class="input-group-addon">
+                                                <span class="icon fa fa-circle-o-notch fa-spin icon-sm"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="form-search-submit" type="submit">
+                                        <span class="mdi mdi-magnify"></span>
+                                    </button>
+                                </form>
+                                <div class="rd-search-results-live offset-top-66 offset-xl-top-41 offset-xxl-top-66" id="rd-search-results-live"></div>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-sidebar-fixed-menu">
+                                <!-- title -->
+                                <div class="rd-navbar-title d-none d-xl-block">
+                                    <h1>
+                                        <span class="big">Menu</span>
+                                    </h1>
+                                    <hr class="divider bg-primary d-none d-xl-block"/>
+                                </div>
+                                <div class="offset-xl-top-30">
+                                    <!-- RD Navbar Nav -->
+                                    <ul class="rd-navbar-nav">
+                                                                            <li>
+                                            <a href="/">
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                                                            <li>
+                                            <a href="/tags">
+                                                <span>Tags</span>
+                                            </a>
+                                        </li>
+                                                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="bg-fixed"
+     >
+    <div class="section-split bg-white"
+             style="margin-right: auto;"
+        >
+        <div class="inset-left-11p inset-right-11p section-98 section-md-110">
+            <article>
+                <div class="article-header text-center">
+                    <div>
+                        <span class="h6 d-block text-uppercase text-regular font-default text-spacing-120 text-primary pb-2">
+                                                        <a href="/tag/php">PHP</a>,                                                        <a href="/tag/symfony">Symfony</a>,                                                        <a href="/tag/symfony-34">Symfony 3.4</a>                                                    </span>
+                    </div>
+                    <h1 class="font-weight-bold mt-0">
+                        Symfony 教學 Chapter 5. 建立和使用 Templates
+                    </h1>
+                    <time class="text-light" datetime="2018-01-01">
+                        2019 February 18
+                    </time>
+                </div>
+
+                <div class="article-content offset-top-24">
+                    <h2>Creating and Using Templates</h2>
+
+<p>As explained in <a href="/doc/symfony/3.4/controller"><em>the previous article</em></a>, controllers are responsible for handling each request that comes into a Symfony application and they usually end up rendering a template to generate the response contents.</p>
+
+<p>In reality, the controller delegates most of the heavy work to other places so that code can be tested and reused. When a controller needs to generate HTML, CSS or any other content, it hands the work off to the templating engine.</p>
+
+<p>In this article, you'll learn how to write powerful templates that can be used to return content to the user, populate email bodies, and more. You'll learn shortcuts, clever ways to extend templates and how to reuse template code.</p>
+
+<h2>Templates</h2>
+
+<p>A template is simply a text file that can generate any text-based format (HTML, XML, CSV, LaTeX ...). The most familiar type of template is a <em>PHP</em> template - a text file parsed by PHP that contains a mix of text and PHP code:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">Welcome</span> <span class="nx">to</span> <span class="nx">Symfony</span><span class="o">!&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;&lt;?=</span> <span class="nv">$page_title</span> <span class="cp">?&gt;</span><span class="x">&lt;/h1&gt;</span>
+
+<span class="x">        &lt;ul id=&quot;navigation&quot;&gt;</span>
+<span class="x">            </span><span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$navigation</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                &lt;li&gt;</span>
+<span class="x">                    &lt;a href=&quot;</span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$item</span><span class="o">-&gt;</span><span class="na">getHref</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x">&quot;&gt;</span>
+<span class="x">                        </span><span class="cp">&lt;?</span><span class="o">=</span> <span class="nv">$item</span><span class="o">-&gt;</span><span class="na">getCaption</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                    &lt;/a&gt;</span>
+<span class="x">                &lt;/li&gt;</span>
+<span class="x">            </span><span class="cp">&lt;?php</span> <span class="k">endforeach</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">        &lt;/ul&gt;</span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>But Symfony packages an even more powerful templating language called <a href="https://twig.symfony.com/">Twig</a>. Twig allows you to write concise, readable templates that are more friendly to web designers and, in several ways, more powerful than PHP templates:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">Welcome</span> <span class="nx">to</span> <span class="nx">Symfony</span><span class="o">!&lt;/</span><span class="nx">title</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nx">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">page_title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;navigation&quot;</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="nx">item</span> <span class="nx">in</span> <span class="nx">navigation</span> <span class="o">%</span><span class="p">}</span>
+                <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;{{ item.href }}&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nx">item</span><span class="o">.</span><span class="nx">caption</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="nx">a</span><span class="o">&gt;&lt;/</span><span class="nx">li</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="o">%</span> <span class="k">endfor</span> <span class="o">%</span><span class="p">}</span>
+        <span class="o">&lt;/</span><span class="nx">ul</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="nx">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Twig defines three types of special syntax:</p>
+
+<ul>
+<li><code>{{ ... }}</code><br />
+"Says something": prints a variable or the result of an expression to the template.</li>
+<li><code>{% ... %}</code><br />
+"Does something": a <strong>tag</strong> that controls the logic of the template; it is used to execute statements such as for-loops for example.</li>
+<li><code>{# ... #}</code><br />
+"Comment something": it's the equivalent of the PHP <code>/* comment */</code> syntax. It's used to add single or multi-line comments. The content of the comments isn't included in the rendered pages.</li>
+</ul>
+
+<p>Twig also contains <strong>filters</strong>, which modify content before being rendered. The following makes the <code>title</code> variable all uppercase before rendering it:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">title</span><span class="o">|</span><span class="nf">upper</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Twig comes with a long list of <a href="https://twig.symfony.com/doc/2.x/tags/index.html">tags</a>, <a href="https://twig.symfony.com/doc/2.x/filters/index.html">filters</a> and <a href="https://twig.symfony.com/doc/2.x/functions/index.html">functions</a> that are available by default. You can even add your own <em>custom</em> filters, functions (and more) via a <a href="https://symfony.com/doc/3.4/templating/twig_extension.html"><em>Twig Extension</em></a>.</p>
+
+<p>Twig code will look similar to PHP code, with subtle, nice differences. The following example uses a standard <code>for</code> tag and the <code>cycle()</code> function to print ten div tags, with alternating <code>odd</code>, even classes:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> <span class="m">1..10</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;div class=&quot;</span><span class="cp">{{</span> <span class="nv">cycle</span><span class="o">([</span><span class="s1">&#39;even&#39;</span><span class="o">,</span> <span class="s1">&#39;odd&#39;</span><span class="o">],</span> <span class="nv">i</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">      &lt;!-- some HTML here --&gt;</span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Throughout this article, template examples will be shown in both Twig and PHP.</p>
+
+<div class="code-block sidebar"><p>Why Twig?</p>
+
+<p>Twig templates are meant to be simple and won't process PHP tags. This is by design: the Twig template system is meant to express presentation, not program logic. The more you use Twig, the more you'll appreciate and benefit from this distinction. And of course, you'll be loved by web designers everywhere.</p>
+
+<p>Twig can also do things that PHP can't, such as whitespace control, sandboxing, automatic HTML escaping, manual contextual output escaping, and the inclusion of custom functions and filters that only affect templates. Twig contains little features that make writing templates easier and more concise. Take the following example, which combines a loop with a logical <code>if</code> statement:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;ul&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="nv">if</span> <span class="nv">user.active</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span> <span class="cp">}}</span><span class="x">&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;li&gt;No users found&lt;/li&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">&lt;/ul&gt;</span>
+</pre></div>
+</td></tr></table></div></div>
+
+<h2>Twig Template Caching</h2>
+
+<p>Twig is fast because each template is compiled to a native PHP class and cached. But don't worry: this happens automatically and doesn't require <em>you</em> to do anything. And while you're developing, Twig is smart enough to re-compile your templates after you make any changes. That means Twig is fast in production, but easy to use while developing.</p>
+
+<h2>Template Inheritance and Layouts</h2>
+
+<p>More often than not, templates in a project share common elements, like the header, footer, sidebar or more. In Symfony, this problem is thought about differently: a template can be decorated by another one. This works exactly the same as PHP classes: template inheritance allows you to build a base "layout" template that contains all the common elements of your site defined as <strong>blocks</strong> (think "PHP class with base methods"). A child template can extend the base layout and override any of its blocks (think "PHP subclass that overrides certain methods of its parent class").</p>
+
+<p>First, build a base layout file:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/base.html.twig #}</span><span class="x"></span>
+<span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html&gt;</span>
+<span class="x">    &lt;head&gt;</span>
+<span class="x">        &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="x">        &lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span><span class="x">Test Application</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">&lt;/title&gt;</span>
+<span class="x">    &lt;/head&gt;</span>
+<span class="x">    &lt;body&gt;</span>
+<span class="x">        &lt;div id=&quot;sidebar&quot;&gt;</span>
+<span class="x">            </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">                &lt;ul&gt;</span>
+<span class="x">                    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                    &lt;li&gt;&lt;a href=&quot;/blog&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                &lt;/ul&gt;</span>
+<span class="x">            </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+
+<span class="x">        &lt;div id=&quot;content&quot;&gt;</span>
+<span class="x">            </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>Though the discussion about template inheritance will be in terms of Twig, the philosophy is the same between Twig and PHP templates.</p></div>
+
+<p>This template defines the base HTML skeleton document of a simple two-column page. In this example, three <code>{% block %}</code> areas are defined (<code>title</code>, <code>sidebar</code> and <code>body</code>). Each block may be overridden by a child template or left with its default implementation. This template could also be rendered directly. In that case the <code>title</code>, <code>sidebar</code> and <code>body</code> blocks would simply retain the default values used in this template.</p>
+
+<p>A child template might look like this:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/blog/index.html.twig #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;base.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span><span class="x">My cool blog posts</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">entry</span> <span class="k">in</span> <span class="nv">blog_entries</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">entry.title</span> <span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">        &lt;p&gt;</span><span class="cp">{{</span> <span class="nv">entry.body</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>The parent template is stored in <code>app/Resources/views/</code>, so its path is simply <code>base.html.twig</code>. The template naming conventions are explained fully in <a href="https://symfony.com/doc/3.4/templating.html#template-naming-locations">Template Naming and Locations</a>.</p></div>
+
+<p>The key to template inheritance is the <code>{% extends %}</code> tag. This tells the templating engine to first evaluate the base template, which sets up the layout and defines several blocks. The child template is then rendered, at which point the <code>title</code> and <code>body</code> blocks of the parent are replaced by those from the child. Depending on the value of <code>blog_entries</code>, the output might look like this:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html&gt;</span>
+<span class="x">    &lt;head&gt;</span>
+<span class="x">        &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="x">        &lt;title&gt;My cool blog posts&lt;/title&gt;</span>
+<span class="x">    &lt;/head&gt;</span>
+<span class="x">    &lt;body&gt;</span>
+<span class="x">        &lt;div id=&quot;sidebar&quot;&gt;</span>
+<span class="x">            &lt;ul&gt;</span>
+<span class="x">                &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                &lt;li&gt;&lt;a href=&quot;/blog&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">            &lt;/ul&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+
+<span class="x">        &lt;div id=&quot;content&quot;&gt;</span>
+<span class="x">            &lt;h2&gt;My first post&lt;/h2&gt;</span>
+<span class="x">            &lt;p&gt;The body of the first post.&lt;/p&gt;</span>
+
+<span class="x">            &lt;h2&gt;Another post&lt;/h2&gt;</span>
+<span class="x">            &lt;p&gt;The body of the second post.&lt;/p&gt;</span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Notice that since the child template didn't define a <code>sidebar</code> block, the value from the parent template is used instead. Content within a <code>{% block %}</code> tag in a parent template is always used by default.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>You can use as many levels of inheritance as you want! See <a href="https://symfony.com/doc/3.4/templating/inheritance.html"><em>How to Organize Your Twig Templates Using Inheritance</em></a> for more info.</p></div>
+
+<p>When working with template inheritance, here are some tips to keep in mind:</p>
+
+<ul>
+<li>If you use <code>{% extends %}</code> in a template, it must be the first tag in that template;</li>
+<li>The more <code>{% block %}</code> tags you have in your base templates, the better. Remember, child templates don't have to define all parent blocks, so create as many blocks in your base templates as you want and give each a sensible default. The more blocks your base templates have, the more flexible your layout will be;</li>
+<li>If you find yourself duplicating content in a number of templates, it probably means you should move that content to a <code>{% block %}</code> in a parent template. In some cases, a better solution may be to move the content to a new template and <code>include</code> it (see <a href="https://symfony.com/doc/3.4/templating.html#including-templates">Including other Templates</a>);</li>
+<li>If you need to get the content of a block from the parent template, you can use the <code>{{ parent() }}</code> function. This is useful if you want to add to the contents of a parent block instead of completely overriding it:</li>
+</ul>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;h3&gt;Table of Contents&lt;/h3&gt;</span>
+
+<span class="x">    </span><span class="c">{# ... #}</span><span class="x"></span>
+
+<span class="x">    </span><span class="cp">{{</span> <span class="nb">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<h2>Template Naming and Locations</h2>
+
+<p>By default, templates can live in two different locations:</p>
+
+<ul>
+<li><code>app/Resources/views/</code><br />
+The application's <code>views</code> directory can contain application-wide base templates (i.e. your application's layouts and templates of the application bundle) as well as templates that override third party bundle templates (see <a href="https://symfony.com/doc/3.4/templating/overriding.html"><em>How to Override Templates from Third-Party Bundles</em></a>).</li>
+<li><code>vendor/path/to/CoolBundle/Resources/views/</code><br />
+Each third party bundle houses its templates in its <code>Resources/views/</code> directory (and subdirectories). When you plan to share your bundle, you should put the templates in the bundle instead of the <code>app/</code> directory.</li>
+</ul>
+
+<p>Most of the templates you'll use live in the <code>app/Resources/views/</code> directory. The path you'll use will be relative to this directory. For example, to render/extend <code>app/Resources/views/base.html.twig</code>, you'll use the <code>base.html.twig</code> path and to render/extend <code>app/Resources/views/blog/index.html.twig</code>, you'll use the <code>blog/index.html.twig</code> path.</p>
+
+<h2>Referencing Templates in a Bundle</h2>
+
+<p><em>If</em> you need to refer to a template that lives in a bundle, Symfony uses the Twig namespaced syntax (<code>@BundleName/directory/filename.html.twig</code>). This allows for several types of templates, each which lives in a specific location:</p>
+
+<ul>
+<li><p><code>@AcmeBlog/Blog/index.html.twig</code>: This syntax is used to specify a template for a specific page. The three parts of the string, each separated by a slash (<code>/</code>), mean the following:</p>
+
+<ul>
+<li><code>@AcmeBlog</code>: is the bundle name without the <code>Bundle</code> suffix. This template lives in the AcmeBlogBundle (e.g. <code>src/Acme/BlogBundle</code>);</li>
+<li><code>Blog</code>: (<em>directory</em>) indicates that the template lives inside the <code>Blog</code> subdirectory of <code>Resources/views/</code>;</li>
+<li><code>index.html.twig</code>: (<em>filename</em>) the actual name of the file is <code>index.html.twig</code>.</li>
+</ul>
+
+<p>Assuming that the AcmeBlogBundle lives at src/Acme/BlogBundle, the final path to the layout would be src/Acme/BlogBundle/Resources/views/Blog/index.html.twig.</p></li>
+<li><p><code>@AcmeBlog/layout.html.twig</code>: This syntax refers to a base template that's specific to the AcmeBlogBundle. Since the middle, "directory", portion is missing (e.g. <code>Blog</code>), the template lives at <code>Resources/views/layout.html.twig</code> inside AcmeBlogBundle.</p></li>
+</ul>
+
+<p>In the <a href="https://symfony.com/doc/3.4/templating/overriding.html"><em>How to Override Templates from Third-Party Bundles</em></a> section, you'll find out how each template living inside the AcmeBlogBundle, for example, can be overridden by placing a template of the same name in the <code>app/Resources/AcmeBlogBundle/views/</code> directory. This gives the power to override templates from any vendor bundle.</p>
+
+<h2>Template Suffix</h2>
+
+<p>Every template name also has two extensions that specify the <em>format</em> and <em>engine</em> for that template.</p>
+
+<table class="table table-bordered">
+<thead class="table-active">
+<tr>
+  <th>Filename</th>
+  <th>Format</th>
+  <th>Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>blog/index.html.twig</td>
+  <td>HTML</td>
+  <td>Twig</td>
+</tr>
+<tr>
+  <td>blog/index.html.php</td>
+  <td>HTML</td>
+  <td>PHP</td>
+</tr>
+<tr>
+  <td>blog/index.css.twig</td>
+  <td>CSS</td>
+  <td>Twig</td>
+</tr>
+</tbody>
+</table>
+
+<p>By default, any Symfony template can be written in either Twig or PHP, and the last part of the extension (e.g. <code>.twig</code> or <code>.php</code>) specifies which of these two <em>engines</em> should be used. The first part of the extension, (e.g. <code>.html</code>, <code>.css</code>, etc) is the final format that the template will generate. Unlike the engine, which determines how Symfony parses the template, this is simply an organizational tactic used in case the same resource needs to be rendered as HTML (<code>index.html.twig</code>), XML (<code>index.xml.twig</code>), or any other format. For more information, read the <a href="https://symfony.com/doc/3.4/templating/formats.html"><em>How to Work with Different Output Formats in Templates</em></a> section.</p>
+
+<h2>Tags and Helpers</h2>
+
+<p>You already understand the basics of templates, how they're named and how to use template inheritance. The hardest parts are already behind you. In this section, you'll learn about a large group of tools available to help perform the most common template tasks such as including other templates, linking to pages and including images.</p>
+
+<p>Symfony comes bundled with several specialized Twig tags and functions that ease the work of the template designer. In PHP, the templating system provides an extensible <code>helper</code> system that provides useful features in a template context.</p>
+
+<p>You've already seen a few built-in Twig tags like <code>{% block %}</code> and <code>{% extends %}</code>. Here you will learn a few more.</p>
+
+<h2>Including other Templates</h2>
+
+<p>You'll often want to include the same template or code fragment on several pages. For example, in an application with "news articles", the template code displaying an article might be used on the article detail page, on a page displaying the most popular articles, or in a list of the latest articles.</p>
+
+<p>When you need to reuse a chunk of PHP code, you typically move the code to a new PHP class or function. The same is true for templates. By moving the reused template code into its own template, it can be included from any other template. First, create the template that you'll need to reuse.</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/article/article_details.html.twig #}</span><span class="x"></span>
+<span class="x">&lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">&lt;h3 class=&quot;byline&quot;&gt;by </span><span class="cp">{{</span> <span class="nv">article.authorName</span> <span class="cp">}}</span><span class="x">&lt;/h3&gt;</span>
+
+<span class="x">&lt;p&gt;</span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">article.body</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">&lt;/p&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Including this template from any other template is simple:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/article/list.html.twig #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;layout.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;h1&gt;Recent Articles&lt;h1&gt;</span>
+
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">include</span><span class="o">(</span><span class="s1">&#39;article/article_details.html.twig&#39;</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;article&#39;</span><span class="o">:</span> <span class="nv">article</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The template is included using the <code>{{ include() }}</code> function. Notice that the template name follows the same typical convention. The <code>article_details.html.twig</code> template uses an <code>article</code> variable, which we pass to it. In this case, you could avoid doing this entirely, as all of the variables available in <code>list.html.twig</code> are also available in <code>article_details.html.twig</code> (unless you set <a href="https://twig.symfony.com/doc/2.x/functions/include.html">with_context</a> to false).</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>The <code>{'article': article}</code> syntax is the standard Twig syntax for hash maps (i.e. an array with named keys). If you needed to pass in multiple elements, it would look like this: <code>{'foo': foo, 'bar': bar}</code>.</p></div>
+
+<h2>Linking to Pages</h2>
+
+<p>Creating links to other pages in your application is one of the most common jobs for a template. Instead of hardcoding URLs in templates, use the <code>path</code> Twig function (or the <code>router</code> helper in PHP) to generate URLs based on the routing configuration. Later, if you want to modify the URL of a particular page, all you'll need to do is change the routing configuration: the templates will automatically generate the new URL.</p>
+
+<p>First, link to the "welcome" page, which is accessible via the following routing configuration:</p>
+
+<div class="code-block config"><div id="config-d36610f25c41ef4390a96fcfbfb256cc" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-d36610f25c41ef4390a96fcfbfb256cc-0" role="tab">
+        Annotation
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-d36610f25c41ef4390a96fcfbfb256cc-1" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-d36610f25c41ef4390a96fcfbfb256cc-2" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-d36610f25c41ef4390a96fcfbfb256cc-3" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block php annotation"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/WelcomeController.php</span>
+
+<span class="c1">// ...</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Annotation\Route</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">WelcomeController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @Route(&quot;/&quot;, name=&quot;welcome&quot;)</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/routing.yml</span>
+<span class="nt">welcome</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span>     <span class="l l-Scalar l-Scalar-Plain">/</span>
+    <span class="nt">defaults</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> _controller</span><span class="p">:</span> <span class="nv">AppBundle</span><span class="p p-Indicator">:</span><span class="nv">Welcome</span><span class="p p-Indicator">:</span><span class="nv">index</span> <span class="p p-Indicator">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/routing.yml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;routes</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/routing&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/routing</span>
+<span class="s">        http://symfony.com/schema/routing/routing-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;welcome&quot;</span> <span class="na">path=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>AppBundle:Welcome:index<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;/route&gt;</span>
+<span class="nt">&lt;/routes&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/routing.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Route</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\RouteCollection</span><span class="p">;</span>
+
+<span class="nv">$routes</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RouteCollection</span><span class="p">();</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;_controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AppBundle:Welcome:index&#39;</span><span class="p">,</span>
+<span class="p">]));</span>
+
+<span class="k">return</span> <span class="nv">$routes</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>To link to the page, just use the <code>path()</code> Twig function and refer to the route:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;a href=&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;welcome&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;&gt;Home&lt;/a&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>As expected, this will generate the URL <code>/</code>. Now, for a more complicated route:</p>
+
+<div class="code-block config"><div id="config-a7e9e0916a5d3b83b092d7cd3f381494" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-a7e9e0916a5d3b83b092d7cd3f381494-0" role="tab">
+        Annotation
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a7e9e0916a5d3b83b092d7cd3f381494-1" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a7e9e0916a5d3b83b092d7cd3f381494-2" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a7e9e0916a5d3b83b092d7cd3f381494-3" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block php annotation"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/ArticleController.php</span>
+
+<span class="c1">// ...</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Annotation\Route</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">ArticleController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @Route(&quot;/article/{slug}&quot;, name=&quot;article_show&quot;)</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">showAction</span><span class="p">(</span><span class="nv">$slug</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/routing.yml</span>
+<span class="nt">article_show</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span>     <span class="l l-Scalar l-Scalar-Plain">/article/{slug}</span>
+    <span class="nt">defaults</span><span class="p">:</span> <span class="p p-Indicator">{</span><span class="nt"> _controller</span><span class="p">:</span> <span class="nv">AppBundle</span><span class="p p-Indicator">:</span><span class="nv">Article</span><span class="p p-Indicator">:</span><span class="nv">show</span> <span class="p p-Indicator">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/routing.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;routes</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/routing&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/routing</span>
+<span class="s">        http://symfony.com/schema/routing/routing-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;article_show&quot;</span> <span class="na">path=</span><span class="s">&quot;/article/{slug}&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>AppBundle:Article:show<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;/route&gt;</span>
+<span class="nt">&lt;/routes&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/routing.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Route</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\RouteCollection</span><span class="p">;</span>
+
+<span class="nv">$routes</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RouteCollection</span><span class="p">();</span>
+<span class="nv">$routes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;article_show&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">&#39;/article/{slug}&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;_controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AppBundle:Article:show&#39;</span><span class="p">,</span>
+<span class="p">]));</span>
+
+<span class="k">return</span> <span class="nv">$routes</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>In this case, you need to specify both the route name (<code>article_show</code>) and a value for the <code>{slug}</code> parameter. Using this route, revisit the <code>recent_list.html.twig</code> template from the previous section and link to the articles correctly:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/article/recent_list.html.twig #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;a href=&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;article_show&#39;</span><span class="o">,</span> <span class="o">{</span><span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="nv">article.slug</span><span class="o">})</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;/a&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>You can also generate an absolute URL by using the <code>url()</code> Twig function:</p></div>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;a href=&quot;</span><span class="cp">{{</span> <span class="nv">url</span><span class="o">(</span><span class="s1">&#39;welcome&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;&gt;Home&lt;/a&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<h2>Linking to Assets</h2>
+
+<p>Templates also commonly refer to images, JavaScript, stylesheets and other assets. Of course you could hard-code the path to these assets (e.g. <code>/images/logo.png</code>), but Symfony provides a more dynamic option via the <code>asset()</code> Twig function:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;img src=&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;images/logo.png&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; alt=&quot;Symfony!&quot; /&gt;</span>
+
+<span class="x">&lt;link href=&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;css/blog.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; rel=&quot;stylesheet&quot; /&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The <code>asset()</code> function's main purpose is to make your application more portable. If your application lives at the root of your host (e.g. <code>http://example.com</code>), then the rendered paths should be <code>/images/logo.png</code>. But if your application lives in a subdirectory (e.g. <code>http://example.com/my_app</code>), each asset path should render with the subdirectory (e.g. <code>/my_app/images/logo.png</code>). The <code>asset()</code> function takes care of this by determining how your application is being used and generating the correct paths accordingly.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>The <code>asset()</code> function supports various cache busting techniques via the <a href="https://symfony.com/doc/3.4/reference/configuration/framework.html#reference-framework-assets-version">version</a>, <a href="https://symfony.com/doc/3.4/reference/configuration/framework.html#reference-assets-version-format">version_format</a>, and <a href="https://symfony.com/doc/3.4/reference/configuration/framework.html#reference-assets-json-manifest-path">json_manifest_path</a> configuration options.</p></div>
+
+<p>If you need absolute URLs for assets, use the <code>absolute_url()</code> Twig function as follows:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;img src=&quot;</span><span class="cp">{{</span> <span class="nv">absolute_url</span><span class="o">(</span><span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;images/logo.png&#39;</span><span class="o">))</span> <span class="cp">}}</span><span class="x">&quot; alt=&quot;Symfony!&quot; /&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<h2>Including Stylesheets and JavaScripts in Twig</h2>
+
+<p>No site would be complete without including JavaScript files and stylesheets. In Symfony, the inclusion of these assets is handled elegantly by taking advantage of Symfony's template inheritance.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>This section will teach you the philosophy behind including stylesheet and JavaScript assets in Symfony. Symfony is also compatible with another library, called Assetic, which follows this philosophy but allows you to do much more interesting things with those assets. For more information on using <a href="https://symfony.com/doc/3.4/frontend/assetic/asset_management.html"><em>Assetic see How to Use Assetic for Asset Management</em></a>.</p></div>
+
+<p>Start by adding two blocks to your base template that will hold your assets: one called <code>stylesheets</code> inside the <code>head</code> tag and another called <code>javascripts</code> just above the closing <code>body</code> tag. These blocks will contain all of the stylesheets and JavaScripts that you'll need throughout your site:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/base.html.twig #}</span><span class="x"></span>
+<span class="x">&lt;html&gt;</span>
+<span class="x">    &lt;head&gt;</span>
+<span class="x">        </span><span class="c">{# ... #}</span><span class="x"></span>
+
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">stylesheets</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            &lt;link href=&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;css/main.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; rel=&quot;stylesheet&quot; /&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/head&gt;</span>
+<span class="x">    &lt;body&gt;</span>
+<span class="x">        </span><span class="c">{# ... #}</span><span class="x"></span>
+
+<span class="x">        </span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">javascripts</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">            &lt;script src=&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;js/main.js&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot;&gt;&lt;/script&gt;</span>
+<span class="x">        </span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>That's easy enough! But what if you need to include an extra stylesheet or JavaScript from a child template? For example, suppose you have a contact page and you need to include a <code>contact.css</code> stylesheet <code>just</code> on that page. From inside that contact page's template, do the following:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/contact/contact.html.twig #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;base.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">stylesheets</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nb">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="x">    &lt;link href=&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;css/contact.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; rel=&quot;stylesheet&quot; /&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# ... #}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<p>In the child template, you simply override the <code>stylesheets</code> block and put your new stylesheet tag inside of that block. Of course, since you want to add to the parent block's content (and not actually <em>replace</em> it), you should use the <code>parent()</code> Twig function to include everything from the <code>stylesheets</code> block of the base template.</p>
+
+<p>You can also include assets located in your bundles' <code>Resources/public</code> folder. You will need to run the  <code>php bin/console assets:install target [--symlink]</code> command, which copies (or symlinks) files into the correct location. (target is by default the "web/" directory of your application).</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;link href=&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;bundles/acmedemo/css/contact.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; rel=&quot;stylesheet&quot; /&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The end result is a page that includes <code>main.js</code> and both the <code>main.css</code> and <code>contact.css</code> stylesheets.</p>
+
+<h2>Referencing the Request, User or Session</h2>
+
+<p>Symfony also gives you a global <code>app</code> variable in Twig that can be used to access the current user, the Request and more.</p>
+
+<p>See <a href="https://symfony.com/doc/3.4/templating/app_variable.html"><em>How to Access the User, Request, Session &amp; more in Twig via the app Variable</em></a> for details.</p>
+
+<h2>Output Escaping</h2>
+
+<p>Twig performs automatic "output escaping" when rendering any content in order to protect you from Cross Site Scripting (XSS) attacks.</p>
+
+<p>Suppose <code>description</code> equals <code>I &lt;3 this product</code>:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="x">&lt;!-- output escaping is on automatically --&gt;</span>
+<span class="cp">{{</span> <span class="nv">description</span> <span class="cp">}}</span><span class="x"> &lt;!-- I &amp;lt;3 this product --&gt;</span>
+
+<span class="x">&lt;!-- disable output escaping with the raw filter --&gt;</span>
+<span class="cp">{{</span> <span class="nv">description</span><span class="o">|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x"> &lt;!-- I &lt;3 this product --&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>For more details, see <a href="https://symfony.com/doc/3.4/templating/escaping.html"><em>How to Escape Output in Templates</em></a>.</p>
+
+<h2>Final Thoughts</h2>
+
+<p>The templating system is just <em>one</em> of the many tools in Symfony. And its job is simple: allow us to render dynamic &amp; complex HTML output so that this can ultimately be returned to the user, sent in an email or something else.</p>
+
+<h2>Keep Going!</h2>
+
+<p>Before diving into the rest of Symfony, check out the <a href="https://symfony.com/doc/3.4/configuration.html"><em>configuration system</em></a>.</p>
+
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見<a href="https://symfony.com/doc/3.4/templating.html">此連結</a></p></div>
+
+                </div>
+            </article>
+            <hr class="offset-top-66">
+            <h4 class="offset-top-66 text-uppercase text-spacing-120 font-weight-bold">Comments</h4>
+            <div class="offset-top-41">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://glisland.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="section-relative page-footer bg-gray-base context-dark">
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-sm-6 text-center text-sm-left">
+                    Copyright &copy; 2018
+                    <a href="/author">
+                        <span class="ml-1">leo.on.the.earth</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <ul class="list-inline social-media">
+                                                                                                        <li class="list-inline-item">
+                            <a class="icon fa fa-github-alt icon-xxs icon-circle icon-darkest-filled"
+                               href="https://github.com/LeoOnTheEarth" target="_blank"></a>
+                        </li>
+                                        </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Javascript -->
+<script src="/theme/default/js/core.min.js?v0.0.1"></script>
+<script src="/theme/default/js/script.js?v0.0.1"></script>
+
+<script type="text/javascript">
+    [].forEach.call(document.querySelectorAll('.gp, .c1'), function (gp) {
+        gp.dataset.content = gp.textContent;
+    });
+
+    function updateConfigCodeBlocks()
+    {
+        $('.code-block.config .config').each(function() {
+            var $node = $(this);
+            var id = $node.attr('id');
+
+            $node.find('.tab-content > div.code-block').each(function(i, elem) {
+                var $block = $(this);
+                var classes = 'tab-pane fade' + (i === 0 ? ' show active' : '');
+
+                $block.addClass(classes);
+                $block.attr('id', id + '-' + i.toString());
+            });
+        });
+    }
+    updateConfigCodeBlocks();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34288948-1" type="text/javascript"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-34288948-1');
+  
+  
+</script>
+
+</body>
+</html>

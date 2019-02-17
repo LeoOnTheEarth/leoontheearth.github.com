@@ -609,3 +609,7 @@ Routing is a system for mapping the URL of incoming requests to the controller f
 ## Keep Going!
 
 Routing, check! Now, uncover the power of [_controllers_](https://symfony.com/doc/3.4/controller.html).
+
+```see-also
+此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見[此連結](https://symfony.com/doc/3.4/routing.html)
+```

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html class="wow-animation" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>    Symfony 教學 Chapter 4. Controller | SPACECOWBOY.
+</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Questrial%7CLibre+Baskerville:400,400italic,700%7CLato:400,300">
+    <link rel="stylesheet" href="/theme/default/css/style.css?v0.0.1">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+
+    <link rel="stylesheet" href="/theme/default/css/base.css?v0.0.1">
+
+    <style type="text/css">
+    @media (min-width: 1200px) {
+        .section-split {
+            width: 66%;
+        }
+    }
+</style>
+<link rel="stylesheet" href="/theme/default/css/article.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-common.css?v0.0.1">
+<link rel="stylesheet" href="/theme/default/css/pygments-symfony.css?v0.0.1">
+</head>
+<body>
+
+<h1 class="d-none">Symfony 教學 Chapter 4. Controller | SPACECOWBOY.</h1>
+
+<!-- IE Panel -->
+<div class="ie-panel">
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+        <img src="/theme/default/images/ie8-panel/warning_bar_0000_us.jpg?v0.0.1" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+    </a>
+</div>
+
+<!-- Page -->
+<div class="page">
+    <!-- Page Head -->
+    <header class="page-head">
+        <!-- RD Navbar Transparent -->
+        <div class="rd-navbar-wrap">
+            <nav class="rd-navbar rd-navbar-sidebar-fixed rd-navbar-light"
+                 data-xl-layout="rd-navbar-sidebar-fixed"
+                 data-lg-layout="rd-navbar-sidebar-fixed"
+                 data-md-layout="rd-navbar-sidebar-fixed"
+                 data-sm-layout="rd-navbar-sidebar-fixed"
+                 data-xs-layout="rd-navbar-sidebar-fixed"
+                 data-layout="rd-navbar-sidebar-fixed"
+                 data-lg-auto-height="false"
+                 data-lg-stick-up="false"
+                 data-lg-hover-on="false"
+                 data-body-class="body-inset-left"
+            >
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel -->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle -->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar, .rd-navbar-nav-wrap"><span></span></button>
+                        <!-- Navbar Brand Mobile -->
+                        <div class="rd-navbar-brand">
+                            <a href="/">
+                                <img width="170" height="27" src="/assets/images/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-search">
+                            <a class="rd-navbar-search-toggle" href="#"
+                               data-rd-navbar-toggle=".rd-navbar-inner, .rd-navbar-search, .rd-navbar-sidebar-fixed-search">
+                                <span class="icon icon-xxs text-middle"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rd-navbar-menu-wrap">
+                        <!-- RD Navbar Search -->
+                        <div class="rd-navbar-sidebar-fixed-search">
+                            <div class="container">
+                                <form class="rd-search form-search" action="search-results.html" method="GET"
+                                      data-search-filter="blog-archive-single*.html"
+                                      data-search-live="rd-search-results-live"
+                                      data-search-template="&lt;div class=&quot;search-fullscreen-results-item unit unit-horizontal&quot;&gt;&lt;div class=&quot;unit-left search-fullscreen-results-item-date&quot;&gt;#{date}&lt;/div&gt;&lt;div class=&quot;unit-body&quot;&gt;&lt;h3 class=&quot;search-fullscreen-results-item-title&quot;&gt;&lt;a href=&quot;#{href}&quot;&gt;#{title}&lt;/a&gt;&lt;/h3&gt;&lt;p class=&quot;search-fullscreen-results-item-tags&quot; &gt;in #{keywords}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;"
+                                >
+                                    <div class="form-group">
+                                        <label class="form-label form-search-label" for="ss">Type and hit Enter..</label>
+                                        <div class="input-group">
+                                            <input class="form-search-input form-control form-control-rect form-control-impressed custom-search-input"
+                                                   id="ss" type="text" name="s" autocomplete="off" />
+                                            <div class="input-group-addon">
+                                                <span class="icon fa fa-circle-o-notch fa-spin icon-sm"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="form-search-submit" type="submit">
+                                        <span class="mdi mdi-magnify"></span>
+                                    </button>
+                                </form>
+                                <div class="rd-search-results-live offset-top-66 offset-xl-top-41 offset-xxl-top-66" id="rd-search-results-live"></div>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-sidebar-fixed-menu">
+                                <!-- title -->
+                                <div class="rd-navbar-title d-none d-xl-block">
+                                    <h1>
+                                        <span class="big">Menu</span>
+                                    </h1>
+                                    <hr class="divider bg-primary d-none d-xl-block"/>
+                                </div>
+                                <div class="offset-xl-top-30">
+                                    <!-- RD Navbar Nav -->
+                                    <ul class="rd-navbar-nav">
+                                                                            <li>
+                                            <a href="/">
+                                                <span>Home</span>
+                                            </a>
+                                        </li>
+                                                                            <li>
+                                            <a href="/tags">
+                                                <span>Tags</span>
+                                            </a>
+                                        </li>
+                                                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="bg-fixed"
+     >
+    <div class="section-split bg-white"
+             style="margin-right: auto;"
+        >
+        <div class="inset-left-11p inset-right-11p section-98 section-md-110">
+            <article>
+                <div class="article-header text-center">
+                    <div>
+                        <span class="h6 d-block text-uppercase text-regular font-default text-spacing-120 text-primary pb-2">
+                                                        <a href="/tag/php">PHP</a>,                                                        <a href="/tag/symfony">Symfony</a>,                                                        <a href="/tag/symfony-34">Symfony 3.4</a>                                                    </span>
+                    </div>
+                    <h1 class="font-weight-bold mt-0">
+                        Symfony 教學 Chapter 4. Controller
+                    </h1>
+                    <time class="text-light" datetime="2018-01-01">
+                        2019 February 18
+                    </time>
+                </div>
+
+                <div class="article-content offset-top-24">
+                    <h2>Controller</h2>
+
+<p>A controller is a PHP function you create that reads information from the Symfony's <code>Request</code> object and creates and returns a <code>Response</code> object. The response could be an HTML page, JSON, XML, a file download, a redirect, a 404 error or anything else you can dream up. The controller executes whatever arbitrary logic <em>your application</em> needs to render the content of a page.</p>
+
+<p>See how simple this is by looking at a Symfony controller in action. This renders a page that prints a lucky (random) number:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/LuckyController.php</span>
+<span class="k">namespace</span> <span class="nx">AppBundle\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Annotation\Route</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LuckyController</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @Route(&quot;/lucky/number&quot;)</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">numberAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$number</span> <span class="o">=</span> <span class="nx">random_int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>
+            <span class="s1">&#39;&lt;html&gt;&lt;body&gt;Lucky number: &#39;</span><span class="o">.</span><span class="nv">$number</span><span class="o">.</span><span class="s1">&#39;&lt;/body&gt;&lt;/html&gt;&#39;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>But in the real world, your controller will probably do a lot of work in order to create the response. It might read information from the request, load a database resource, send an email or set information on the user's session. But in all cases, the controller will eventually return the <code>Response</code> object that will be delivered back to the client.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>If you haven't already created your first working page, check out <a href="/doc/symfony/3.4/page_creation"><em>Create your First Page in Symfony</em></a> and then come back!</p></div>
+
+<h2>A Simple Controller</h2>
+
+<p>While a controller can be any PHP callable (a function, method on an object, or a <code>Closure</code>), a controller is usually a method inside a controller class:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/LuckyController.php</span>
+<span class="k">namespace</span> <span class="nx">AppBundle\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\Routing\Annotation\Route</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LuckyController</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * @Route(&quot;/lucky/number/{max}&quot;)</span>
+<span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">numberAction</span><span class="p">(</span><span class="nv">$max</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$number</span> <span class="o">=</span> <span class="nx">random_int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nv">$max</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span>
+            <span class="s1">&#39;&lt;html&gt;&lt;body&gt;Lucky number: &#39;</span><span class="o">.</span><span class="nv">$number</span><span class="o">.</span><span class="s1">&#39;&lt;/body&gt;&lt;/html&gt;&#39;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The controller is the <code>numberAction()</code> method, which lives inside a controller class <code>LuckyController</code>.</p>
+
+<p>This controller is pretty straightforward:</p>
+
+<p><em>line 2</em>: Symfony takes advantage of PHP's namespace functionality to namespace the entire controller class.
+<em>line 4</em>: Symfony again takes advantage of PHP's namespace functionality: the <code>use</code> keyword imports the <code>Response</code> class, which the controller must return.
+<em>line 7</em>: The class can technically be called anything - but should end in the word <code>Controller</code> (this isn't <em>required</em>, but some shortcuts rely on this).
+<em>line 12</em>: Each action method in a controller class is suffixed with <code>Action</code> (again, this isn't <em>required</em>, but some shortcuts rely on this). This method is allowed to have a <code>$max</code> argument thanks to the <code>{max}</code> <a href="https://symfony.com/doc/3.4/routing.html">wildcard in the route</a>.
+<em>line 16</em>: The controller creates and returns a <code>Response</code> object.</p>
+
+<h2>Mapping a URL to a Controller</h2>
+
+<p>In order to <em>view</em> the result of this controller, you need to map a URL to it via a route. This was done above with the <code>@Route("/lucky/number/{max}")</code> annotation.</p>
+
+<p>To see your page, go to this URL in your browser:</p>
+
+<blockquote>
+  http://localhost:8000/lucky/number/100
+  
+
+</blockquote>
+
+<p>For more information on routing, see <a href="/doc/symfony/3.4/routing.html"><em>Routing</em></a>.</p>
+
+<h2>The Base Controller Classes &amp; Services</h2>
+
+<p>For convenience, Symfony comes with two optional base <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php"><code>Controller</code></a> and <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/AbstractController.php"><code>AbstractController</code></a> classes. You can extend either to get access to a number of <a href="https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Controller/ControllerTrait.php">helper methods</a>.</p>
+
+<p>Add the <code>use</code> statement atop the <code>Controller</code> class and then modify <code>LuckyController</code> to extend it:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// src/AppBundle/Controller/LuckyController.php</span>
+<span class="k">namespace</span> <span class="nx">AppBundle\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LuckyController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>That's it! You now have access to methods like <a href="https://symfony.com/doc/3.4/controller.html#controller-rendering-templates">$this->render()</a> and many others that you'll learn about next.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>You can extend either <code>Controller</code> or <code>AbstractController</code>. The difference is that when you extend <code>AbstractController</code>, you can't access to your services via <code>$this-&gt;get()</code> or <code>$this-&gt;container-&gt;get()</code>, only to a set of common Symfony services. This forces you to write more robust code to access services.</p>
+
+<p>Moreover, in Symfony 4.2 <code>Controller</code> was deprecated in favor of <code>AbstractController</code>, so using the latter will make your apps future-proof.</p></div>
+
+<div class="code-block sidebar"><p>New in version 3.3: The <code>AbstractController</code> class was added in Symfony 3.3.</p></div>
+
+<h2>Generating URLs</h2>
+
+<p>The <code>generateUrl()</code> method is just a helper method that generates the URL for a given route:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nv">$url</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateUrl</span><span class="p">(</span><span class="s1">&#39;blog_show&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;slug&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;slug-value&#39;</span><span class="p">]);</span>
+</pre></div>
+</td></tr></table></div>
+
+<h2>Redirecting</h2>
+
+<p>If you want to redirect the user to another page, use the <code>redirectToRoute()</code> and <code>redirect()</code> methods:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// redirects to the &quot;homepage&quot; route</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">);</span>
+
+    <span class="c1">// does a permanent - 301 redirect</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">301</span><span class="p">);</span>
+
+    <span class="c1">// redirects to a route with parameters</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;blog_show&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;slug&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my-page&#39;</span><span class="p">]);</span>
+
+    <span class="c1">// redirects to a route and mantains the original query string parameters</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;blog_show&#39;</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">());</span>
+
+    <span class="c1">// redirects externally</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="s1">&#39;http://symfony.com/doc&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>For more information, see the <a href="https://symfony.com/doc/3.4/routing.html"><em>Routing article</em></a>.</p>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>The <code>redirect()</code> method does not check its destination in any way. If you redirect to some URL provided by the end-users, your application may be open to the <a href="https://www.owasp.org/index.php/Open_redirect">unvalidated redirects security vulnerability</a>.</p></div>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>The <code>redirectToRoute()</code> method is simply a shortcut that creates a <code>Response</code> object that specializes in redirecting the user. It's equivalent to:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\RedirectResponse</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">RedirectResponse</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateUrl</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div></div>
+
+<h2>Rendering Templates</h2>
+
+<p>If you're serving HTML, you'll want to render a template. The <code>render()</code> method renders a template <strong>and</strong> puts that content into a <code>Response</code> object for you:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// renders app/Resources/views/lucky/number.html.twig</span>
+<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;lucky/number.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;number&#39;</span> <span class="o">=&gt;</span> <span class="nv">$number</span><span class="p">]);</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Templates can also live in deeper sub-directories. Just try to avoid creating unnecessarily deep structures:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// renders app/Resources/views/lottery/lucky/number.html.twig</span>
+<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;lottery/lucky/number.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">&#39;number&#39;</span> <span class="o">=&gt;</span> <span class="nv">$number</span><span class="p">,</span>
+<span class="p">]);</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The Symfony templating system and Twig are explained more in the <a href="https://symfony.com/doc/3.4/templating.html"><em>Creating and Using Templates</em></a> article.</p>
+
+<h2>Fetching Services as Controller Arguments</h2>
+
+<div class="code-block sidebar"><p>New in version 3.3: The ability to type-hint a controller argument in order to receive a service was added in Symfony 3.3.</p></div>
+
+<p>Symfony comes <em>packed</em> with a lot of useful objects, called <a href="https://symfony.com/doc/3.4/service_container.html"><em>services</em></a>. These are used for rendering templates, sending emails, querying the database and any other "work" you can think of.</p>
+
+<p>If you need a service in a controller, just type-hint an argument with its class (or interface) name. Symfony will automatically pass you the service you need:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Psr\Log\LoggerInterface</span>
+<span class="c1">// ...</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * @Route(&quot;/lucky/number/{max}&quot;)</span>
+<span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">numberAction</span><span class="p">(</span><span class="nv">$max</span><span class="p">,</span> <span class="nx">LoggerInterface</span> <span class="nv">$logger</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s1">&#39;We are logging!&#39;</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Awesome!</p>
+
+<p>What other services can you type-hint? To see them, use the <code>debug:autowiring</code> console command:</p>
+
+<div class="code-block terminal"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="gp">$</span> php bin/console debug:autowiring
+</pre></div>
+</td></tr></table></div>
+
+<p>If you need control over the <em>exact</em> value of an argument, you can <a href="https://symfony.com/doc/3.4/service_container.html#services-binding">bind</a> the argument by its name:</p>
+
+<div class="code-block config yaml xml php"><div id="config-a293eea19412c45777bd8a8f3676cd40" class="config">
+    <ul class="nav nav-tabs" role="tablist"><li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#config-a293eea19412c45777bd8a8f3676cd40-0" role="tab">
+        Yaml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a293eea19412c45777bd8a8f3676cd40-1" role="tab">
+        Xml
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link " data-toggle="tab" href="#config-a293eea19412c45777bd8a8f3676cd40-2" role="tab">
+        Php
+    </a>
+</li></ul>
+    <div class="tab-content">
+        <div class="code-block yaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># app/config/services.yml</span>
+<span class="nt">services</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+
+    <span class="c1"># explicitly configure the service</span>
+    <span class="nt">AppBundle\Controller\LuckyController</span><span class="p">:</span>
+        <span class="nt">public</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="nt">bind</span><span class="p">:</span>
+            <span class="c1"># for any $logger argument, pass this specific service</span>
+            <span class="nt">$logger</span><span class="p">:</span> <span class="s">&#39;@monolog.logger.doctrine&#39;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block xml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">&lt;!-- app/config/services.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services</span>
+<span class="s">        http://symfony.com/schema/dic/services/services-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;services&gt;</span>
+        <span class="c">&lt;!-- ... --&gt;</span>
+
+        <span class="c">&lt;!-- Explicitly configure the service --&gt;</span>
+        <span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;AppBundle\Controller\LuckyController&quot;</span> <span class="na">public=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;bind</span> <span class="na">key=</span><span class="s">&quot;$logger&quot;</span>
+                <span class="na">type=</span><span class="s">&quot;service&quot;</span>
+                <span class="na">id=</span><span class="s">&quot;monolog.logger.doctrine&quot;</span>
+            <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/service&gt;</span>
+    <span class="nt">&lt;/services&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// app/config/services.php</span>
+<span class="k">use</span> <span class="nx">AppBundle\Controller\LuckyController</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Reference</span><span class="p">;</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="nx">LuckyController</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setPublic</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">setBindings</span><span class="p">([</span>
+        <span class="s1">&#39;$logger&#39;</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;monolog.logger.doctrine&#39;</span><span class="p">),</span>
+    <span class="p">])</span>
+<span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+    </div>
+</div></div>
+
+<p>You can of course also use normal <a href="https://symfony.com/doc/3.4/service_container.html#services-constructor-injection">constructor injection</a> in your controllers.</p>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>You can <em>only</em> pass services to your controller arguments in this way. It's not possible, for example, to pass a service parameter as a controller argument, even by using bind. If you need a parameter, use the <code>$this-&gt;getParameter('kernel.debug')</code> shortcut or pass the value through your controller's <code>__construct()</code> method and specify its value with bind.</p></div>
+
+<p>For more information about services, see the <a href="https://symfony.com/doc/3.4/service_container.html"><em>Service Container</em></a> article.</p>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>If this isn't working, make sure your controller is registered as a service, is <a href="https://symfony.com/doc/3.4/service_container.html#services-autoconfigure">autoconfigured</a> and extends either <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php"><code>Controller</code></a> or <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/AbstractController.php"><code>AbstractController</code></a>. If you use the <a href="https://symfony.com/doc/3.4/service_container.html#service-container-services-load-example">services.yml configuration from the Symfony Standard Edition</a>, then your controllers are already registered as services and autoconfigured.</p>
+
+<p>If you're not using the default configuration, you can tag your service manually with <code>controller.service_arguments</code>.</p></div>
+
+<h2>Accessing the Container Directly</h2>
+
+<p>If you extend the base <code>Controller</code> class, you can access any Symfony service via the <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php"><code>get()</code></a> method. Here are several common services you might need:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nv">$templating</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;templating&#39;</span><span class="p">);</span>
+
+<span class="nv">$router</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;router&#39;</span><span class="p">);</span>
+
+<span class="nv">$mailer</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;mailer&#39;</span><span class="p">);</span>
+
+<span class="c1">// you can also fetch parameters</span>
+<span class="nv">$someParameter</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getParameter</span><span class="p">(</span><span class="s1">&#39;some_parameter&#39;</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>If you receive an error like:</p>
+
+<div class="code-block"><div class="highlight"><pre><span></span>You have requested a non-existent service &quot;my_service_id&quot;
+</pre></div>
+</div>
+
+<p>Check to make sure the service exists (use <a href="https://symfony.com/doc/3.4/service_container.html#container-debug-container">debug:container</a>) and that it's <a href="https://symfony.com/doc/3.4/service_container.html#container-public">public</a>.</p>
+
+<h2>Managing Errors and 404 Pages</h2>
+
+<p>When things are not found, you should play well with the HTTP protocol and return a 404 response. To do this, you'll throw a special type of exception. If you're extending the base <code>Controller</code> or the base <code>AbstractController</code> class, do the following:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// retrieve the object from database</span>
+    <span class="nv">$product</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$product</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createNotFoundException</span><span class="p">(</span><span class="s1">&#39;The product does not exist&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php"><code>createNotFoundException()</code></a> method is just a shortcut to create a special <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpKernel/Exception/NotFoundHttpException.php"><code>NotFoundHttpException</code></a> object, which ultimately triggers a 404 HTTP response inside Symfony.</p>
+
+<p>If you throw an exception that extends or is an instance of <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpKernel/Exception/HttpException.php"><code>HttpException</code></a>, Symfony will use the appropriate HTTP status code. Otherwise, the response will have a 500 HTTP status code:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// this exception ultimately generates a 500 status error</span>
+<span class="k">throw</span> <span class="k">new</span> <span class="nx">\Exception</span><span class="p">(</span><span class="s1">&#39;Something went wrong!&#39;</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>In every case, an error page is shown to the end user and a full debug error page is shown to the developer (i.e. when you're using the <code>app_dev.php</code> front controller - see <a href="https://symfony.com/doc/3.4/configuration.html#page-creation-environments">The imports Key: Loading other Configuration Files</a>).</p>
+
+<p>You'll want to customize the error page your user sees. To do that, see the <a href="https://symfony.com/doc/3.4/controller/error_pages.html"><em>How to Customize Error Pages</em></a> article.</p>
+
+<h2>The Request object as a Controller Argument</h2>
+
+<p>What if you need to read query parameters, grab a request header or get access to an uploaded file? All of that information is stored in Symfony's <code>Request</code> object. To get it in your controller, just add it as an argument and <strong>type-hint it with the Request class</strong>:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$firstName</span><span class="p">,</span> <span class="nv">$lastName</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$page</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p><a href="https://symfony.com/doc/3.4/controller.html#request-object-info">Keep reading</a> for more information about using the Request object.</p>
+
+<h2>Managing the Session</h2>
+
+<p>Symfony provides a nice session object that you can use to store information about the user between requests. By default, Symfony stores the token in a cookie and writes the attributes to a file by using native PHP sessions.</p>
+
+<div class="code-block sidebar"><p>New in version 3.3: The ability to request a Session instance in controllers was introduced in Symfony 3.3.</p></div>
+
+<p>To retrieve the session, add the <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpFoundation/Session/SessionInterface.php"><code>SessionInterface</code></a> type-hint to your argument and Symfony will provide you with a session:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Session\SessionInterface</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">SessionInterface</span> <span class="nv">$session</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// stores an attribute for reuse during a later user request</span>
+    <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+
+    <span class="c1">// gets the attribute set by another controller in another request</span>
+    <span class="nv">$foobar</span> <span class="o">=</span> <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;foobar&#39;</span><span class="p">);</span>
+
+    <span class="c1">// uses a default value if the attribute doesn&#39;t exist</span>
+    <span class="nv">$filters</span> <span class="o">=</span> <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filters&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>Stored attributes remain in the session for the remainder of that user's session.</p>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>Every <code>SessionInterface</code> implementation is supported. If you have your own implementation, type-hint this in the arguments instead.</p></div>
+
+<h2>Flash Messages</h2>
+
+<p>You can also store special messages, called "flash" messages, on the user's session. By design, flash messages are meant to be used exactly once: they vanish from the session automatically as soon as you retrieve them. This feature makes "flash" messages particularly great for storing user notifications.</p>
+
+<p>For example, imagine you're processing a <a href="https://symfony.com/doc/3.4/forms.html"><em>form</em></a> submission:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">updateAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// do some sort of processing</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span>
+            <span class="s1">&#39;notice&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Your changes were saved!&#39;</span>
+        <span class="p">);</span>
+        <span class="c1">// $this-&gt;addFlash() is equivalent to $request-&gt;getSession()-&gt;getFlashBag()-&gt;add()</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>After processing the request, the controller sets a flash message in the session and then redirects. The message key (<code>notice</code> in this example) can be anything: you'll use this key to retrieve the message.</p>
+
+<p>In the template of the next page (or even better, in your base layout template), read any flash messages from the session using <code>app.flashes()</code>:</p>
+
+<div class="code-block twig"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c">{# app/Resources/views/base.html.twig #}</span><span class="x"></span>
+
+<span class="c">{# read and display just one flash message type #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">message</span> <span class="k">in</span> <span class="nv">app.flashes</span><span class="o">(</span><span class="s1">&#39;notice&#39;</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;div class=&quot;flash-notice&quot;&gt;</span>
+<span class="x">        </span><span class="cp">{{</span> <span class="nv">message</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# read and display several types of flash messages #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">label</span><span class="o">,</span> <span class="nv">messages</span> <span class="k">in</span> <span class="nv">app.flashes</span><span class="o">([</span><span class="s1">&#39;success&#39;</span><span class="o">,</span> <span class="s1">&#39;warning&#39;</span><span class="o">])</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">message</span> <span class="k">in</span> <span class="nv">messages</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;div class=&quot;flash-</span><span class="cp">{{</span> <span class="nv">label</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">            </span><span class="cp">{{</span> <span class="nv">message</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="c">{# read and display all flash messages #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">label</span><span class="o">,</span> <span class="nv">messages</span> <span class="k">in</span> <span class="nv">app.flashes</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">for</span> <span class="nv">message</span> <span class="k">in</span> <span class="nv">messages</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">        &lt;div class=&quot;flash-</span><span class="cp">{{</span> <span class="nv">label</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<span class="x">            </span><span class="cp">{{</span> <span class="nv">message</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    </span><span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</td></tr></table></div>
+
+<div class="code-block sidebar"><p>New in version 3.3: The <code>app.flashes()</code> Twig function was introduced in Symfony 3.3. Prior, you had to use <code>app.session.flashBag()</code>.</p></div>
+
+<div class="code-block note"><div class="note-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Note</span>
+</div><p>It's common to use <code>notice</code>, <code>warning</code> and <code>error</code> as the keys of the different types of flash messages, but you can use any key that fits your needs.</p></div>
+
+<div class="code-block tip"><div class="tip-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">Tip</span>
+</div><p>You can use the <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpFoundation/Session/Flash/FlashBagInterface.php"><code>peek()</code></a> method instead to retrieve the message while keeping it in the bag.</p></div>
+
+<h2>The Request and Response Object</h2>
+
+<p>As mentioned <a href="https://symfony.com/doc/3.4/controller.html#controller-request-argument">earlier</a>, the framework will pass the <code>Request</code> object to any controller argument that is type-hinted with the <code>Request</code> class:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isXmlHttpRequest</span><span class="p">();</span> <span class="c1">// is it an Ajax request?</span>
+
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPreferredLanguage</span><span class="p">([</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">]);</span>
+
+    <span class="c1">// retrieves GET and POST variables respectively</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">);</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">);</span>
+
+    <span class="c1">// retrieves SERVER variables</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">server</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;HTTP_HOST&#39;</span><span class="p">);</span>
+
+    <span class="c1">// retrieves an instance of UploadedFile identified by foo</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">files</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+
+    <span class="c1">// retrieves a COOKIE value</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">cookies</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PHPSESSID&#39;</span><span class="p">);</span>
+
+    <span class="c1">// retrieves an HTTP request header, with normalized, lowercase keys</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">);</span>
+    <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The <code>Request</code> class has several public properties and methods that return any information you need about the request.</p>
+
+<p>Like the <code>Request</code>, the <code>Response</code> object has also a public <code>headers</code> property. This is a <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpFoundation/ResponseHeaderBag.php"><code>ResponseHeaderBag</code></a> that has some nice methods for getting and setting response headers. The header names are normalized so that using <code>Content-Type</code> is equivalent to <code>content-type</code> or even <code>content_type</code>.</p>
+
+<p>The only requirement for a controller is to return a <code>Response</code> object. The <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpFoundation/Response.php"><code>Response</code></a> class is an abstraction around the HTTP response - the text-based message filled with headers and content that's sent back to the client:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+
+<span class="c1">// creates a simple Response with a 200 status code (the default)</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;Hello &#39;</span><span class="o">.</span><span class="nv">$name</span><span class="p">,</span> <span class="nx">Response</span><span class="o">::</span><span class="na">HTTP_OK</span><span class="p">);</span>
+
+<span class="c1">// creates a CSS-response with a 200 status code</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;&lt;style&gt; ... &lt;/style&gt;&#39;</span><span class="p">);</span>
+<span class="nv">$response</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;text/css&#39;</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>There are special classes that make certain kinds of responses easier:</p>
+
+<ul>
+<li>For files, there is <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpFoundation/BinaryFileResponse.php"><code>BinaryFileResponse</code></a>. See <a href="https://symfony.com/doc/3.4/components/http_foundation.html#component-http-foundation-serving-files">Serving Files</a>.</li>
+<li>For streamed responses, there is <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Component/HttpFoundation/StreamedResponse.php"><code>StreamedResponse</code></a>. See <a href="https://symfony.com/doc/3.4/components/http_foundation.html#streaming-response">Streaming a Response</a>.</li>
+</ul>
+
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>Now that you know the basics you can continue your research on Symfony <code>Request</code> and <code>Response</code> object in the <a href="https://symfony.com/doc/3.4/components/http_foundation.html#component-http-foundation-request">HttpFoundation component documentation</a>.</p></div>
+
+<h2>JSON Helper</h2>
+
+<p>To return JSON from a controller, use the <code>json()</code> helper method on the base controller. This returns a special <code>JsonResponse</code> object that encodes the data automatically:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// returns &#39;{&quot;username&quot;:&quot;jane.doe&quot;}&#39; and sets the proper Content-Type header</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">([</span><span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;jane.doe&#39;</span><span class="p">]);</span>
+
+    <span class="c1">// the shortcut defines three optional arguments</span>
+    <span class="c1">// return $this-&gt;json($data, $status = 200, $headers = [], $context = []);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>If the <a href="https://symfony.com/doc/3.4/serializer.html"><em>serializer service</em></a> is enabled in your application, contents passed to <code>json()</code> are encoded with it. Otherwise, the <a href="https://secure.php.net/manual/en/function.json-encode.php"><code>json_encode</code></a> function is used.</p>
+
+<h2>File helper</h2>
+
+<div class="code-block sidebar"><p>New in version 3.2: The <code>file()</code> helper was introduced in Symfony 3.2.</p></div>
+
+<p>You can use the <a href="https://github.com/symfony/symfony/blob/3.4/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php"><code>file()</code></a> helper to serve a file from inside a controller:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">public</span> <span class="k">function</span> <span class="nf">fileAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// send the file contents and force the browser to download it</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">&#39;/path/to/some_file.pdf&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<p>The <code>file()</code> helper provides some arguments to configure its behavior:</p>
+
+<div class="code-block php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\File\File</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\ResponseHeaderBag</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">fileAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// load the file from the filesystem</span>
+    <span class="nv">$file</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">File</span><span class="p">(</span><span class="s1">&#39;/path/to/some_file.pdf&#39;</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="nv">$file</span><span class="p">);</span>
+
+    <span class="c1">// rename the downloaded file</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="s1">&#39;custom_name.pdf&#39;</span><span class="p">);</span>
+
+    <span class="c1">// display the file contents in the browser instead of downloading it</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">&#39;invoice_3241.pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;my_invoice.pdf&#39;</span><span class="p">,</span> <span class="nx">ResponseHeaderBag</span><span class="o">::</span><span class="na">DISPOSITION_INLINE</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+
+<h2>Final Thoughts</h2>
+
+<p>Whenever you create a page, you'll ultimately need to write some code that contains the logic for that page. In Symfony, this is called a controller, and it's a PHP function where you can do anything in order to return the final <code>Response</code> object that will be returned to the user.</p>
+
+<p>To make life easier, you'll probably extend the base <code>Controller</code> class because this gives access to shortcut methods (like <code>render()</code> and <code>redirectToRoute()</code>).</p>
+
+<p>In other articles, you'll learn how to use specific services from inside your controller that will help you persist and fetch objects from a database, process form submissions, handle caching and more.</p>
+
+<h2>Keep Going!</h2>
+
+<p>Next, learn all about <a href="/doc/symfony/3.4/templating.html"><em>rendering templates with Twig</em></a>.</p>
+
+<div class="code-block see-also"><div class="see-also-title">
+    <span class="fa-stack fa-md">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-share fa-stack-1x fa-inverse"></i>
+    </span>
+    <span class="text">See Also</span>
+</div><p>此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見<a href="https://symfony.com/doc/3.4/controller.html">此連結</a></p></div>
+
+                </div>
+            </article>
+            <hr class="offset-top-66">
+            <h4 class="offset-top-66 text-uppercase text-spacing-120 font-weight-bold">Comments</h4>
+            <div class="offset-top-41">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://glisland.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+
+    <!-- Page Footer -->
+    <footer class="section-relative page-footer bg-gray-base context-dark">
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-sm-6 text-center text-sm-left">
+                    Copyright &copy; 2018
+                    <a href="/author">
+                        <span class="ml-1">leo.on.the.earth</span>
+                    </a>
+                </div>
+                <div class="col-sm-6 text-center text-sm-right">
+                    <ul class="list-inline social-media">
+                                                                                                        <li class="list-inline-item">
+                            <a class="icon fa fa-github-alt icon-xxs icon-circle icon-darkest-filled"
+                               href="https://github.com/LeoOnTheEarth" target="_blank"></a>
+                        </li>
+                                        </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Javascript -->
+<script src="/theme/default/js/core.min.js?v0.0.1"></script>
+<script src="/theme/default/js/script.js?v0.0.1"></script>
+
+<script type="text/javascript">
+    [].forEach.call(document.querySelectorAll('.gp, .c1'), function (gp) {
+        gp.dataset.content = gp.textContent;
+    });
+
+    function updateConfigCodeBlocks()
+    {
+        $('.code-block.config .config').each(function() {
+            var $node = $(this);
+            var id = $node.attr('id');
+
+            $node.find('.tab-content > div.code-block').each(function(i, elem) {
+                var $block = $(this);
+                var classes = 'tab-pane fade' + (i === 0 ? ' show active' : '');
+
+                $block.addClass(classes);
+                $block.attr('id', id + '-' + i.toString());
+            });
+        });
+    }
+    updateConfigCodeBlocks();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34288948-1" type="text/javascript"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-34288948-1');
+  
+  
+</script>
+
+</body>
+</html>
