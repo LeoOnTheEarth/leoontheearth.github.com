@@ -211,7 +211,7 @@ $ ...
 
 ### Keep Going!
 
-完成了設定之後，該是時候來 [_Create your first page in Symfony_](https://symfony.com/doc/3.4/page_creation.html)
+完成了設定之後，該是時候來 [_建立你的第一個頁面_](/doc/symfony/3.4/page_creation.html)
 
 ```see-also
 此篇文章主要翻譯自 Symfony 官方文件，並做了些許的修改，原始文章請見<a href="https://symfony.com/doc/3.4/setup.html" target="_blank">此連結</a>

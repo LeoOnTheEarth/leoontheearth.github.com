@@ -1,19 +1,19 @@
 ## Routing
 
-Beautiful URLs are an absolute must for any serious web application. This means leaving behind ugly URLs like `index.php?article_id=57` in favor of something like `/read/intro-to-symfony`.
+對任何專業的網頁來說，有個漂亮的網址是絕對必須的。這代表說拋棄像是 `index.php?article_id=57` 的醜陋網址吧，改用這樣的網址 `/read/intro-to-symfony`。
 
-Having flexibility is even more important. What if you need to change the URL of a page from `/blog` to `/news`? How many links should you need to hunt down and update to make the change? If you're using Symfony's router, the change is simple.
+保有彈性是更重要的，如果你想要將頁面的網址從 `/blog` 改成 `/news`，你會有多少連結需要被找到並修改他呢？如果你是用 Symfony 的 router，修改網址是很簡單的。
 
-The Symfony router lets you define creative URLs that you map to different areas of your application. By the end of this article, you'll be able to:
+Symfony router 讓你可以定義有創意的網址，並對應到你的網頁應用中的不同區塊。在讀完本篇文章之後，你可以做到以下幾件事：
 
-- Create complex routes that map to controllers
-- Generate URLs inside templates and controllers
-- Load routing resources from bundles (or anywhere else)
-- Debug your routes
+- 建立複雜的 route，並對應到相關的 controller
+- 在 template 或 controller 中產生網址字串
+- 從 bundle (或其他方式) 載入 routing 資訊
+- 對你的 route 除錯
 
-## Routing Examples
+## Routing 範例
 
-A route is a map from a URL path to a controller. For example, suppose you want to match any URL like `/blog/my-post` or `/blog/all-about-symfony` and send it to a controller that can look up and render that blog post. The route is simple:
+一個 route 代表的是一個網址和一個 controller 之間的對應關係。舉個例子，假設你想在 `/blog/my-post` 或 `/blog/all-about-symfony` 網址中，在其對應的 controller 中查詢並顯示部落格的文章。這樣的 route 設定舉例如下：
 
 ```config
 ~~~php {.annotation}
@@ -97,32 +97,38 @@ return $routes;
 ```
 
 Thanks to these two routes:
+因為有這兩個 route：
 
-- If the user goes to `/blog`, the first route is matched and `listAction()` is executed;
-- If the user goes to `/blog/*`, the second route is matched and `showAction()` is executed. Because the route path is `/blog/{slug}`, a `$slug` variable is passed to `showAction()` matching that value. For example, if the user goes to `/blog/yay-routing`, then `$slug` will equal `yay-routing`.
-Whenever you have a `{placeholder}` in your route path, that portion becomes a wildcard: it matches *any* value. Your controller can now *also* have an argument called `$placeholder` (the wildcard and argument names *must* match).
+- 如果使用者訪問 `/blog`，第一個 route 會命中並執行 `listAction()` 的方法。
+- 如果使用者訪問 `/blog/*`，第二個 route 會命中並執行 `showAction()` 的方法，因為 route 的路徑是設定為 `/blog/{slug}`， `$slug` 這個參數會被傳遞至 `showAction()` 的方法內。舉個例子，如果使用者訪問 `/blog/yay-routing`，那 `$slug` 就會是 `yay-routing`。
 
-Each route also has an internal name: `blog_list` and `blog_show`. These can be anything (as long as each is unique) and don't have any meaning yet. Later, you'll use it to generate URLs.
+每當你的 route 路徑含有 `{placeholder}` 的部分，這個部分會變成一個萬用字元：他會匹配到 *任何* 文字。你的 controller *也* 可以包含一個 `$placeholder` 參數 (萬用字元和參數名稱 *必須* 要相同)。
 
-```sidebar
-Routing in Other Formats
-
-The `@Route` above each method is called an `*annotation*`. If you'd rather configure your routes in YAML, XML or PHP, that's no problem!
-
-In these formats, the `_controller` "defaults" value is a special key that tells Symfony which controller should be executed when a URL matches this route. The `_controller` string is called the [logical name](https://symfony.com/doc/3.4/routing.html#controller-string-syntax). It follows a pattern that points to a specific PHP class and method, in this case the `AppBundle\Controller\BlogController::listAction` and `AppBundle\Controller\BlogController::showAction` methods.
+```caution
+然而，`{placeholder}` 裡的斜線 `/` 預設會被忽略，因為 router 會用斜線分隔不同的 placeholder。想了解更多，可以閱讀 [How to Allow a "/" Character in a Route Parameter](https://symfony.com/doc/3.4/routing/slash_in_parameter.html#routing-slash-in-parameter).
 ```
 
-This is the goal of the Symfony router: to map the URL of a request to a controller. Along the way, you'll learn all sorts of tricks that make mapping even the most complex URLs easy.
+每個 route 也有個名字：`blog_list` 和 `blog_show`，可以是任何名稱（只要每個名稱是唯一的就好），接下來你會用它產生網址。
 
-## Adding {wildcard} Requirements
-Imagine the `blog_list` route will contain a paginated list of blog posts, with URLs like `/blog/2` and `/blog/3` for pages 2 and 3. If you change the route's path to `/blog/{page}`, you'll have a problem:
+```sidebar
+不同格式的 Routing
 
-- blog_list: `/blog/{page}` will match `/blog/*`
-- blog_show: `/blog/{slug}` will also match `/blog/*`
+每個 method 註解中的 `@Route` 被稱作 `*annotation*`，如果你想用YAML, XML 或 PHP 的格式來設定你的 route，那也是沒問題的！
 
-When two routes match the same URL, the *first* route that's loaded wins. Unfortunately, that means that `/blog/yay-routing` will match the `blog_list`. No good!
+在這些格式中，`defaults` 設定的 `_controller` 會讓 Symfony 知道當某個網址對應到該 route 時要執行那個 controller。`_controller` 也被稱作 [logical name](https://symfony.com/doc/3.4/routing.html#controller-string-syntax)，有個相對應的格式指向相對應的 PHP class 和 method，也就是這個例子的 `AppBundle\Controller\BlogController::listAction` and `AppBundle\Controller\BlogController::showAction` 兩個 method。
+```
 
-To fix this, add a requirement that the `{page}` wildcard can *only* match numbers (digits):
+Symfony router 的目的是建立網址和 controller 的關聯。在這過程中，你會習得各種建立 route 的技巧，就算是複雜的網址也可以很簡單。
+
+## 加入 {wildcard} 的限制條件 (`requirements`)
+假設 `blog_list` 的 route 顯示一個有分頁的部落格文章清單，網址像是 `/blog/2` 和 `/blog/3` 表示第2頁和第3頁。如果你設定 route 的路徑為 `/blog/{page}`，你會遇到一個問題：
+
+- blog_list: `/blog/{page}` 會比對為 `/blog/*`
+- blog_show: `/blog/{slug}` 會比對為 `/blog/*`
+
+當兩個 route 對應到一樣的網址，*第一個*被載入的 route 會勝出 (比對成功)，也就是說 `/blog/yay-routing` 會比對到 `blog_list` 的 route，這不太妙喔！
+
+要修正這個問題，加入一個 `requirements` 設定，讓 `{page}` 只允許數字的內容：
 
 ```config
 ~~~php {.annotation}
@@ -199,20 +205,20 @@ return $routes;
 ~~~
 ```
 
-The `\d+` is a regular expression that matches a digit of any length. Now:
+`\d+` 是正規表示式，會比對出一個任意長度的數字，結果如下：
 
 URL | Route | Parameters
 -----|-----|-----
 /blog/2 | blog_list | $page = 2
 /blog/yay-routing | blog_show | $slug = yay-routing
 
-To learn about other route requirements - like HTTP method, hostname and dynamic expressions - see [_How to Define Route Requirements_](https://symfony.com/doc/3.4/routing/requirements.html).
+想了解更多其他 `requirements` 的用法，像是 HTTP method、hostname、和 dynamic expressions，請見 [_How to Define Route Requirements_](https://symfony.com/doc/3.4/routing/requirements.html)。
 
-## Giving {placeholders} a Default Value
+## 給定 {placeholders} 一個預設值
 
-In the previous example, the `blog_list` has a path of `/blog/{page}`. If the user visits `/blog/1`, it will match. But if they visit `/blog`, it will **not** match. As soon as you add a `{placeholder}` to a route, it *must* have a value.
+在之前的範例中，`blog_list` 的網址路徑為 `/blog/{page}`。如果用戶訪問 `/blog/1` 那就會匹配到該 route，但如果訪問 `/blog` 的話，則會無法匹配。只要你的 route 包含一個 `{placeholder}`，那他*必須*要有個值。
 
-So how can you make `blog_list` once again match when the user visits `/blog`? By adding a default value:
+那要如何在訪問 `/blog` 時也能被匹配到 `blog_list` 呢？我們需要加一個預設值上去：
 
 ```config
 ~~~php {.annotation}
@@ -288,11 +294,11 @@ return $routes;
 ~~~
 ```
 
-Now, when the user visits `/blog`, the `blog_list` route will match and `$page` will default to a value of `1`.
+這樣的話，當用戶訪問 `/blog` 時 `blog_list` 的 route 將會被匹配到，並且 `$page` 預設的數值為 `1`。
 
-## Advanced Routing Example
+## 進階的 Routing 範例
 
-With all of this in mind, check out this advanced example:
+記住所有前述的資訊，來看看這個進階的範例：
 
 ```config
 ~~~php {.annotation}
@@ -372,56 +378,56 @@ return $routes;
 ~~~
 ```
 
-As you've seen, this route will only match if the `{_locale}` portion of the URL is either `en` or `fr` and if the `{year}` is a number. This route also shows how you can use a dot between placeholders instead of a slash. URLs matching this route might look like:
+就像你看到的，該 route 只會在 `{_locale}` 為 `en` 或 `fr` 並且 `{year}` 是一個數字的情形下匹配成功，該 route 同時也告訴你可以在 {placeholder} 之間使用小數點 (`.`) 來取代斜線 (`/`)，匹配該 route 的網址有以下幾個可能：
 
 - `/articles/en/2010/my-post`
 - `/articles/fr/2010/my-post.rss`
 - `/articles/en/2013/my-latest-post.html`
 
 ```sidebar
-The Special _format Routing Parameter
+特殊 Routing 參數 _format
 
-This example also highlights the special `_format` routing parameter. When using this parameter, the matched value becomes the "request format" of the `Request` object.
+這個範例也突顯了特殊的 routing 參數 `_format`，當使用此參數時，被匹配到的數值會成為 `Request` 物件的「請求格式 (request format)」。
 
-Ultimately, the request format is used for such things as setting the `Content-Type` of the response (e.g. a `json` request format translates into a `Content-Type` of `application/json`). It can also be used in the controller to render a different template for each value of `_format`. The `_format` parameter is a very powerful way to render the same content in different formats.
+最終，請求格式會被使用於像是 Response 的 `Content-Type` 等設定 (例如，`json` 的請求格式會被轉譯成 `application/json` 的 `application/json`)。這也可以用在 controller 中來繪製不同格式的範本，`_format` 這個參數是個很有用的方式來繪製同一個網頁內容，但使用不同的網頁格式。
 
-In Symfony versions previous to 3.0, it is possible to override the request format by adding a query parameter named `_format` (for example: `/foo/bar?_format=json`). Relying on this behavior not only is considered a bad practice but it will complicate the upgrade of your applications to Symfony 3.
+在 Symfony 3.0 之前的版本，可以加入一個名為 `_format` 的 query 參數來覆蓋請求格式 (比如說：`/foo/bar?_format=json`)，這個方式被視為一個不好的實作方式，同時也會讓你升級 Symfony 3 的動作變得複雜。
 ```
 
 ```note
-Sometimes you want to make certain parts of your routes globally configurable. Symfony provides you with a way to do this by leveraging service container parameters. Read more about this in "[How to Use Service Container Parameters in your Routes](https://symfony.com/doc/3.4/routing/service_container_parameters.html)".
+有時候你想要讓 route 的某部分能被設定在全域環境中，Symfony 中可以設定 service container 的參數來達到這件事，詳細可以閱讀「[How to Use Service Container Parameters in your Routes](https://symfony.com/doc/3.4/routing/service_container_parameters.html)」。
 ```
 
-## Special Routing Parameters
+## 特殊 Routing 參數
 
-As you've seen, each routing parameter or default value is eventually available as an argument in the controller method. Additionally, there are four parameters that are special: each adds a unique piece of functionality inside your application:
+就像你看到的，每個 routing 參數或是預設值，最終都可以用在 controller method 中的參數上。此外，還有 4 個特殊的參數，每個都有特定的功能：
 
 - `_controller`  
-    As you've seen, this parameter is used to determine which controller is executed when the route is matched.
+    正如你所見，當 route 被匹配後，該參數用於決定要執行哪個 controller。
 - `_format`  
-    Used to set the request format ([read more](https://symfony.com/doc/3.4/routing.html#routing-format-param)).
+    用於設定請求格式 ([read more](/symfony/3.4/routing#特殊-Routing-參數-_format))
 - `_fragment`  
-    Used to set the fragment identifier, the optional last part of a URL that starts with a `#` character and is used to identify a portion of a document.
+    用於設定 fragment 錨點，網址中最尾巴以 `#` 符號開始的部分，用於識別網頁中的某個部分。
 
-    ```sidebar
-    New in version 3.2: The _fragment parameter was introduced in Symfony 3.2.
+    ```
+    `_fragment` 參數功能加入於 Symfony 3.2。
     ```
 
 - `_locale`  
-    Used to set the locale on the request ([read more](https://symfony.com/doc/3.4/translation/locale.html#translation-locale-url)).
+    用於設定語系 ([read more](https://symfony.com/doc/3.4/translation/locale.html#translation-locale-url))。
 
-## Redirecting URLs with Trailing Slashes
+## 帶有結尾斜線的重新導向網址
 
-Historically, URLs have followed the UNIX convention of adding trailing slashes for directories (e.g. `https://example.com/foo/`) and removing them to refer to files (`https://example.com/foo`). Although serving different contents for both URLs is OK, nowadays it's common to treat both URLs as the same URL and redirect between them.
+從歷史的腳色來看，網址是遵從 UNIX 的慣例，在結尾處加入斜線作為資料夾 (像是 `https://example.com/foo/`)，在結尾處移除斜線作為檔案 (`https://example.com/foo`)。雖然要將兩種網址指向不同的內容是 OK 的，但現今將兩種網址指向同一個內容或是做重新導向已經變為一種共識了。
 
-Symfony follows this logic to redirect between URLs with and without trailing slashes (but only for `GET` and `HEAD` requests):
+Symfony 遵從這樣的邏輯，重新導向有或是沒有結尾斜線的網址 (但只限於 `GET` 和 `HEAD` 請求)：
 
-Route path | If the requested URL is /foo | If the requested URL is /foo/
+Route path | 如果請求網址為 /foo | 如果請求網址為 /foo/
 -----------|------------------------------|------------------------------
-`/foo` | It matches (`200` status response) | It doesn't match (`404` status response)
-`/foo/` | It makes a `301` redirect to `/foo/` | It matches (`200` status response)
+`/foo` | 匹配成功 (`200` status response) | 匹配不成功 (`404` status response)
+`/foo/` | `301` 重新導向到 `/foo/` | 匹配成功 (`200` status response)
 
-In summary, adding a trailing slash in the route path is the best way to ensure that both URLs work. [_Read the Redirect URLs_](https://symfony.com/doc/3.4/routing/redirect_trailing_slash.html) with a Trailing Slash article to learn how to avoid the `404` error when the request URL contains a trailing slash and the route path does not.
+總結來說，在 route path 中加入結尾斜線是確保網址能運作正常的最佳作法，閱讀 [_Redirect URLs with a Trailing Slash_](https://symfony.com/doc/3.4/routing/redirect_trailing_slash.html) 的文章，學習如何避免在請求網址包含結尾的斜線但 route path 沒有時發生的 `404` 錯誤。
 
 ## Controller Naming Pattern
 
