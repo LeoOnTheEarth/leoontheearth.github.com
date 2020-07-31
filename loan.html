@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>貸款計算機</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<h1 class="text-center">貸款計算機</h1>
+
+<hr />
+
+<div class="col-sm-offset-4 col-sm-4 well">
+  <form class="form-horizontal container-fluid">
+    <div class="form-group">
+      <label for="principal" class="col-sm-3 control-label">借款金額</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="principal" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="yearly-rate" class="col-sm-3 control-label">年利率</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="yearly-rate" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="years" class="col-sm-3 control-label">貸款年數</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="years" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="method" class="col-sm-3 control-label">還款方式</label>
+      <div class="col-sm-9">
+        <div class="radio">
+          <label>
+            <input type="radio" name="method" value="1" />
+            本金平均攤還
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="method" value="2" />
+            本息平均攤還
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button type="button" class="btn btn-primary" id="calculate">計算</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="results"></div>
+
+<div class="clearfix"></div>
+
+<script>
+$('#calculate').click(function() {
+  var info = {
+      principal: $('#principal').val(),
+      yearlyRate: $('#yearly-rate').val(),
+      years: $('#years').val(),
+      method: $('input[name="method"]:checked').val(),
+      months: 0,
+      monthlyRate: 0
+    },
+    results;
+  
+  info.months = info.years * 12;
+  info.monthlyRate = info.yearlyRate / 12 / 100.0;
+  
+  if (1 == info.method) {
+    results = calculate1(info.principal, info.months, info.monthlyRate);
+  } else {
+    results = calculate2(info.principal, info.months, info.monthlyRate);
+  }
+  
+  $('#results').html(getResultHtml(results, info));
+});
+
+function getResultHtml(results, info)
+{
+  var html = '',
+    totalInterest = results.reduce(function(pv,cv){return pv+parseInt(cv[3]);}, 0);
+  
+  html += '<div class="col-sm-offset-4 col-sm-4"><table class="table table-bordered">';
+  html += '<tr><td>本金</td><td>' + info.principal.toString() + '</td></tr>';
+  html += '<tr><td>期數</td><td>' + info.months.toString() + '</td></tr>';
+  html += '<tr><td>年利率</td><td>' + info.yearlyRate.toString() + '%</td></tr>';
+  html += '<tr><td>月利率</td><td>' + (info.monthlyRate * 100).toString().substr(0, 6) + '%</td></tr>';
+  html += '<tr><td>全部利息</td><td>' + totalInterest + ' (本金的' + (totalInterest / info.principal * 100).toString().substr(0, 6) + '%)</td></tr>';
+  html += '<tr><td>總金額</td><td>' + results.reduce(function(pv,cv){return pv+parseInt(cv[1]);}, 0).toString() + '</td></tr>';
+  html += '</table></div>';
+  
+  html += '<div class="col-sm-offset-2 col-sm-8" ><table class="table table-bordered">';
+  html += '<tr><th>期數</th><th>本期金額</th><th>償還本金</th><th>償還利息</th><th>剩餘本金</th></tr>';
+  
+  $(results).each(function(i, result) {
+    html += '<tr>';
+    
+    $(result).each(function(i, value) {
+      html += '<td>' + value.toString() + '</td>';
+    });
+    
+    html += '</tr>';
+  });
+  
+  html += '</table></div>';
+  
+  return html;
+}
+
+function calculate1(principal, months, monthlyRate)
+{
+  var averagePrincipal = Math.ceil(principal / months),
+    results = [];
+  
+  for (var i = 0; i < months; ++i) {
+    var interest = Math.round(principal * monthlyRate),
+      payment = averagePrincipal + interest;
+    
+    principal = principal - (payment - interest);
+    
+    if (principal < 0) {
+      payment += principal;
+      principal = 0;
+    }
+    
+    results.push([
+      i + 1,
+      payment,
+      payment - interest,
+      interest,
+      principal
+    ]);
+  }
+  
+  return results;
+}
+
+/**
+ * Y = P * (1 + r)^n / [1 + (1 + r) + (1 + r)^2 + ... + (1 + r)^(n-1)];
+ * Y = P * r * (1 + r)^n / [(1 + r)^n - 1]
+ */
+function calculate2(principal, months, monthlyRate)
+{
+  var monthlyRateSum = Math.pow(1 + monthlyRate, months),
+    payment = Math.round((principal * monthlyRate * monthlyRateSum) / (monthlyRateSum - 1)),
+    results = [];
+  
+  for (var i = 0; i < months; ++i) {
+    var interest = Math.round(principal * monthlyRate);
+    
+    principal = principal - (payment - interest);
+    
+    if (principal < 0) {
+      payment += principal;
+      principal = 0;
+    }
+    
+    results.push([
+      i + 1,
+      payment,
+      payment - interest,
+      interest,
+      principal
+    ]);
+  }
+  
+  return results;
+}
+</script>
+
+</body>
+</html>
